@@ -1,0 +1,8 @@
+info:  User get() initiated {"timestamp":"2020-05-12T13:47:16.215Z"}
+info:  User get() execution completed {"timestamp":"2020-05-12T13:47:16.929Z"}
+info:  User get() initiated {"timestamp":"2020-05-12T13:47:43.589Z"}
+info:  User get() execution completed {"timestamp":"2020-05-12T13:47:44.101Z"}
+info:  User create() initiated {"timestamp":"2020-05-13T04:37:38.349Z"}
+info:  User create() execution completed {"timestamp":"2020-05-13T04:37:45.343Z"}
+info:  User create() initiated {"timestamp":"2020-05-13T04:39:10.190Z"}
+info:  User create() execution completed {"timestamp":"2020-05-13T04:39:10.466Z"}
