@@ -5,15 +5,15 @@ module.exports = {
 
     getAll() {
         return Users.query()
-            .withGraphFetched("tasks")
             .withGraphFetched("address")
+            .withGraphFetched("tasks")
 
     },
     getOne(id) {
         return Users.query()
             .findById(id)
-            .withGraphFetched("tasks")
             .withGraphFetched("address")
+            .withGraphFetched("tasks")
     },
     create(users) {
         return Users.query()

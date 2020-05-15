@@ -1,13 +1,12 @@
 const knex = require('./connect');
 const Task = require('../models/user_tasks')
-const currentDate = new Date()
+const currentDate = new Date(new Date().toDateString())
 
 module.exports = {
 
 
     getAll() {
         return Task.query()
-            .where({ over_due: false })
     },
     getOne(id) {
         return Task.query()
@@ -17,14 +16,14 @@ module.exports = {
 
     getAllOverDue() {
         return Task.query()
-            .where({ status: OverDue })
+            .where({ status: 'OverDue' })
     },
 
     // gets one OverDue Task based on user ID
 
     getOneOverDue(id) {
         return Task.query()
-            .where({ user_id: id, status: OverDue })
+            .where({ user_id: id, status: 'OverDue' })
     },
 
 
@@ -37,20 +36,23 @@ module.exports = {
 
     // Task updation initiated
 
-    upadateStatus(id) {
+    updateStatus(id) {
         return Task.query()
             .update({ status: 'Not Started' })
-            .where('estimation', '>', currentDate, 'id', id)
+            .where('id', id)
+            .where('estimation', '>', currentDate)
     },
     updateOverDue(id) {
         return Task.query()
             .update({ status: 'OverDue' })
-            .where('estimation', '<', currentDate, 'id', id)
+            .where('id', id)
+            .where('estimation', '<', currentDate)
     },
     updateInProgress(id) {
         return Task.query()
             .update({ status: 'In Progress' })
-            .where('estimation', '=', currentDate, 'id', id)
+            .where('id', id)
+            .where('estimation', '=', currentDate)
     },
     find(id) {
         return Task.query()
@@ -73,6 +75,7 @@ module.exports = {
         return Task.query()
             .update({ status: 'Completed' })
             .where('id', id)
+            .returning('*')
     },
 
     deleteData(id) {

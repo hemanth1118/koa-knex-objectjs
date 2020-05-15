@@ -25,6 +25,11 @@ exports.up = function (knex, Promise) {
             table.string('country')
             table.integer('user_id').references('id').inTable('users');
         })
+        .createTable('user_login', (table) => {
+            table.increments('id');
+            table.string('email')
+            table.string('password')
+        })
 
 };
 

@@ -1,16 +1,17 @@
 const queries = require('../db/task_query');
 const knex = require('../db/connect')
+const logger = require('../logger')
 exports.get = async (ctx) => {
     try {
-        const currentDate = new Date()
+        logger.info('Task getAll() initiated')
         const task = await queries.getAll();
         if (task.length != 0) {
-            console.log(currentDate)
             ctx.body = {
                 status: 'success',
                 data: task
             };
         } else {
+            logger.error('Task getAll() failed in else block')
             ctx.status = 404;
             ctx.body = {
                 status: 'error',
@@ -18,24 +19,28 @@ exports.get = async (ctx) => {
             };
         }
     } catch (err) {
-        console.log(err)
+        logger.error('Task getAll() failed in catch block')
+        logger.error(err)
     }
 }
 
 
-exports.upadateStatus = async ctx => {
+exports.updateStatus = async ctx => {
     try {
-        const note_started = await queries.upadateStatus(ctx.params.id);
-        const update_overdue = await queries.updateOverDue(task.id)
-        const update_in_progress = await queries.updateInProgress(task.id)
-        const fetch_task = await queries.find(task.id)
-        if (task.length != 0) {
+        const note_started = await queries.updateStatus(ctx.params.id);
+        const update_overdue = await queries.updateOverDue(ctx.params.id)
+        const update_in_progress = await queries.updateInProgress(ctx.params.id)
+        const fetch_task = await queries.find(ctx.params.id)
+        console.log(fetch_task)
+        if (fetch_task.length != 0) {
+            logger.info('Task update() initiated')
             ctx.status = 201;
             ctx.body = {
                 status: 'success',
                 data: fetch_task
             };
         } else {
+            logger.error('Task updateStatus() failed in else block')
             ctx.status = 400;
             ctx.body = {
                 status: 'error',
@@ -43,7 +48,8 @@ exports.upadateStatus = async ctx => {
             };
         }
     } catch (err) {
-        console.log(err)
+        logger.error('Task updateStatus() failed in catch block')
+        logger.error(err)
     }
 
 }
@@ -51,16 +57,16 @@ exports.upadateStatus = async ctx => {
 
 exports.create = async ctx => {
     try {
+        logger.info('Task create() initiated')
         const task = await queries.create(ctx.request.body);
-        // const over_due = await queries.updateOverDue(task.id)
-        // const fetch_task = await queries.find(task.id)
         if (task.length != 0) {
             ctx.status = 201;
             ctx.body = {
                 status: 'success',
-                data: fetch_task
+                data: task
             };
         } else {
+            logger.error('Task create() failed in else block')
             ctx.status = 400;
             ctx.body = {
                 status: 'error',
@@ -68,13 +74,15 @@ exports.create = async ctx => {
             };
         }
     } catch (err) {
-        console.log(err)
+        logger.error('Task create() failed in catch block')
+        logger.error(err)
     }
 
 }
 
 exports.update = async (ctx) => {
     try {
+        logger.info('Task update() initiated')
         const task = await queries.updateData(ctx.params.id, ctx.request.body);
         if (task.length != 0) {
             ctx.status = 200;
@@ -83,6 +91,7 @@ exports.update = async (ctx) => {
                 data: task
             };
         } else {
+            logger.error('Task update() failed in else block')
             ctx.status = 404;
             ctx.body = {
                 status: 'error',
@@ -90,6 +99,8 @@ exports.update = async (ctx) => {
             };
         }
     } catch (err) {
+        logger.error('Task update() failed in catch block')
+        logger.error(err)
         ctx.status = 400;
         ctx.body = {
             status: 'error',
@@ -99,6 +110,7 @@ exports.update = async (ctx) => {
 }
 exports.delete = async ctx => {
     try {
+        logger.error('Task delete() initiated')
         const task = await queries.deleteData(ctx.params.id);
         if (task.length != 0) {
             ctx.status = 200;
@@ -106,6 +118,7 @@ exports.delete = async ctx => {
                 status: 'success',
             };
         } else {
+            logger.error('Task delete() failed in else block')
             ctx.status = 404;
             ctx.body = {
                 status: 'error',
@@ -113,6 +126,8 @@ exports.delete = async ctx => {
             };
         }
     } catch (err) {
+        logger.error('Task delete() failed in catch block')
+        logger.error(err)
         ctx.status = 400;
         ctx.body = {
             status: 'error',
@@ -123,18 +138,21 @@ exports.delete = async ctx => {
 
 exports.getById = async ctx => {
     try {
+        logger.info('Task getById() initiated')
         const task = await queries.getOne(ctx.params.id);
         ctx.body = {
             status: 'success',
             data: task
         };
     } catch (err) {
-        console.log(err)
+        logger.error('Task updateStatus() failed in catch block')
+        logger.error(err)
     }
 }
 
 exports.getAllOverDue = async (ctx) => {
     try {
+        logger.info('Task getAllOverDue() initiated')
         const task = await queries.getAllOverDue();
         if (task.length != 0) {
             ctx.body = {
@@ -143,6 +161,7 @@ exports.getAllOverDue = async (ctx) => {
                 data: task
             };
         } else {
+            logger.error('Task getAllOverDue() failed in else block')
             ctx.status = 404;
             ctx.body = {
                 status: 'error',
@@ -150,20 +169,47 @@ exports.getAllOverDue = async (ctx) => {
             };
         }
     } catch (err) {
-        console.log(err)
+        logger.error('Task getAllOverDue() failed in catch block')
+        logger.error(err)
+    }
+}
+
+exports.getOneOverDue = async (ctx) => {
+    try {
+        logger.info('Task getOneOverDue() initiated')
+        const task = await queries.getOneOverDue(ctx.params.id);
+        if (task.length != 0) {
+            ctx.body = {
+                status: 'success',
+                message: 'OverDue tasks of a particular user',
+                data: task
+            };
+        } else {
+            logger.error('Task getOneOverDue() failed in else block')
+            ctx.status = 404;
+            ctx.body = {
+                status: 'error',
+                message: 'That task does not exist.'
+            };
+        }
+    } catch (err) {
+        logger.error('Task getAllOverDue() failed in catch block')
+        logger.error(err)
     }
 }
 
 exports.updateCompletedTask = async (ctx) => {
     try {
+        logger.info('Task updateCompletedTask() initiated')
         const task = await queries.updateCompletedTask(ctx.params.id);
         if (task.length != 0) {
             ctx.body = {
                 status: 'success',
-                message: ' OverDue Tasks of a particular user ',
+                message: 'Completed task of a particular User',
                 data: task
             };
         } else {
+            logger.error('Task updateCompletedTask() failed in else block')
             ctx.status = 404;
             ctx.body = {
                 status: 'error',
@@ -171,12 +217,14 @@ exports.updateCompletedTask = async (ctx) => {
             };
         }
     } catch (err) {
-        console.log(err)
+        logger.error('Task updateCompletedTask() failed in catch block')
+        logger.error(err)
     }
 }
 
 exports.get_user_task = async ctx => {
     try {
+        logger.info('Task get_user_task() initiated')
         const user_task = await queries.get_user_task(ctx.params.id)
         console.log(user_task)
         ctx.body = {
@@ -186,7 +234,8 @@ exports.get_user_task = async ctx => {
 
 
     } catch (err) {
-        console.log(err)
+        logger.error('Task get_user_task() failed in catch block')
+        logger.error(err)
     }
 }
 

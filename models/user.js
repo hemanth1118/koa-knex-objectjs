@@ -20,20 +20,20 @@ class Users extends unique(Model) {
         const Address = require('./user_address')
 
         return {
-            tasks: {
-                modelClass: Task,
-                relation: Model.HasManyRelation,
-                join: {
-                    from: "users.id",
-                    to: "user_tasks.user_id"
-                }
-            },
             address: {
                 modelClass: Address,
                 relation: Model.HasManyRelation,
                 join: {
                     from: "users.id",
                     to: "user_address.user_id"
+                }
+            },
+            tasks: {
+                modelClass: Task,
+                relation: Model.HasManyRelation,
+                join: {
+                    from: "users.id",
+                    to: "user_tasks.user_id"
                 }
             },
 

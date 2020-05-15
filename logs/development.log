@@ -6,3 +6,93 @@ info:  User create() initiated {"timestamp":"2020-05-13T04:37:38.349Z"}
 info:  User create() execution completed {"timestamp":"2020-05-13T04:37:45.343Z"}
 info:  User create() initiated {"timestamp":"2020-05-13T04:39:10.190Z"}
 info:  User create() execution completed {"timestamp":"2020-05-13T04:39:10.466Z"}
+info:  User create() initiated {"timestamp":"2020-05-13T07:18:55.974Z"}
+info:  User create() execution completed {"timestamp":"2020-05-13T07:18:59.336Z"}
+info:  User get() initiated {"timestamp":"2020-05-13T10:03:55.091Z"}
+info:  User get() execution completed {"timestamp":"2020-05-13T10:04:07.337Z"}
+info:  User getById() initiated {"timestamp":"2020-05-13T10:05:25.127Z"}
+error:  User getById() execution failed in catch block {"timestamp":"2020-05-13T10:05:25.185Z"}
+info:  User getById() initiated {"timestamp":"2020-05-13T10:07:04.341Z"}
+info:  User getById() execution completed {"timestamp":"2020-05-13T10:07:04.417Z"}
+info:  User create() initiated {"timestamp":"2020-05-13T13:32:48.352Z"}
+error: User create() execution failed in catch block {"timestamp":"2020-05-13T13:32:53.988Z"}
+info:  User create() initiated {"timestamp":"2020-05-13T13:33:27.561Z"}
+info:  User create() execution completed {"timestamp":"2020-05-13T13:33:28.132Z"}
+info: Task create() initiated {"timestamp":"2020-05-13T13:33:59.888Z"}
+info: Task create() initiated {"timestamp":"2020-05-13T13:34:29.614Z"}
+info: Task create() initiated {"timestamp":"2020-05-13T13:34:36.912Z"}
+info: Task getById() initiated {"timestamp":"2020-05-13T13:34:59.859Z"}
+info: Task getById() initiated {"timestamp":"2020-05-13T13:36:16.748Z"}
+info:  User create() initiated {"timestamp":"2020-05-14T03:58:38.003Z"}
+error: User create() execution failed in catch block {"timestamp":"2020-05-14T03:58:42.210Z"}
+info:  User create() initiated {"timestamp":"2020-05-14T04:00:10.848Z"}
+info:  User create() execution completed {"timestamp":"2020-05-14T04:00:11.210Z"}
+info:  User create() initiated {"timestamp":"2020-05-14T04:02:40.507Z"}
+info:  User create() execution completed {"timestamp":"2020-05-14T04:02:41.794Z"}
+info: Task getAll() initiated {"timestamp":"2020-05-14T04:04:23.701Z"}
+error: Task getAll() failed in catch block {"timestamp":"2020-05-14T04:04:24.274Z"}
+error: undefined {"name":"DBError","nativeError":{"name":"error","length":171,"severity":"ERROR","code":"42703","position":"47","file":"d:\\pginstaller_12.auto\\postgres.windows-x64\\src\\backend\\parser\\parse_relation.c","line":"3359","routine":"errorMissingColumn"},"client":"postgres","timestamp":"2020-05-14T04:04:24.295Z"}
+info: Task getAll() initiated {"timestamp":"2020-05-14T04:06:01.108Z"}
+info: Task getAllOverDue() initiated {"timestamp":"2020-05-14T04:06:41.064Z"}
+info: Task getOneOverDue() initiated {"timestamp":"2020-05-14T04:07:03.030Z"}
+error: Task getOneOverDue() failed in else block {"timestamp":"2020-05-14T04:07:03.035Z"}
+info: Task getOneOverDue() initiated {"timestamp":"2020-05-14T04:07:11.211Z"}
+info: Task create() initiated {"timestamp":"2020-05-14T04:09:18.526Z"}
+info: Task update() initiated {"timestamp":"2020-05-14T04:10:52.954Z"}
+info: Task update() initiated {"timestamp":"2020-05-14T04:11:08.640Z"}
+info:  User get() initiated {"timestamp":"2020-05-14T04:30:20.193Z"}
+info:  User get() execution completed {"timestamp":"2020-05-14T04:30:23.932Z"}
+info:  User get() initiated {"timestamp":"2020-05-14T11:30:17.075Z"}
+error:  User get() execution failed in else block {"timestamp":"2020-05-14T11:30:19.239Z"}
+info: Task getAll() initiated {"timestamp":"2020-05-14T11:30:33.349Z"}
+error: Task getAll() failed in else block {"timestamp":"2020-05-14T11:30:33.463Z"}
+info: Task getAll() initiated {"timestamp":"2020-05-14T11:30:50.142Z"}
+error: Task getAll() failed in else block {"timestamp":"2020-05-14T11:30:50.741Z"}
+info: Task getAll() initiated {"timestamp":"2020-05-14T11:32:48.097Z"}
+error: Task getAll() failed in else block {"timestamp":"2020-05-14T11:32:49.331Z"}
+info:  User get() initiated {"timestamp":"2020-05-14T14:01:59.041Z"}
+error:  User get() execution failed in else block {"timestamp":"2020-05-14T14:02:01.245Z"}
+info:  User get() initiated {"timestamp":"2020-05-14T14:02:40.238Z"}
+error:  User get() execution failed in else block {"timestamp":"2020-05-14T14:02:40.244Z"}
+info:  User get() initiated {"timestamp":"2020-05-14T14:14:31.854Z"}
+error:  User get() execution failed in else block {"timestamp":"2020-05-14T14:14:47.240Z"}
+info:  User get() initiated {"timestamp":"2020-05-14T14:16:57.573Z"}
+error:  User get() execution failed in else block {"timestamp":"2020-05-14T14:16:58.109Z"}
+info:  User create() initiated {"timestamp":"2020-05-14T14:17:58.491Z"}
+info:  User create() execution completed {"timestamp":"2020-05-14T14:18:00.470Z"}
+info:  User create() initiated {"timestamp":"2020-05-14T14:21:21.950Z"}
+info:  User create() execution completed {"timestamp":"2020-05-14T14:21:22.215Z"}
+info:  User get() initiated {"timestamp":"2020-05-14T14:22:26.664Z"}
+info:  User get() execution completed {"timestamp":"2020-05-14T14:22:26.749Z"}
+info:  User get() initiated {"timestamp":"2020-05-14T14:22:33.361Z"}
+info:  User get() execution completed {"timestamp":"2020-05-14T14:22:33.410Z"}
+info:  User getById() initiated {"timestamp":"2020-05-14T14:22:50.664Z"}
+info:  User getById() execution completed {"timestamp":"2020-05-14T14:22:50.680Z"}
+info:  User getById() initiated {"timestamp":"2020-05-14T14:23:11.264Z"}
+info:  User getById() execution completed {"timestamp":"2020-05-14T14:23:11.307Z"}
+info:  User getById() initiated {"timestamp":"2020-05-14T14:23:23.908Z"}
+info:  User getById() execution completed {"timestamp":"2020-05-14T14:23:23.923Z"}
+info:  User getById() initiated {"timestamp":"2020-05-14T14:23:52.439Z"}
+info:  User getById() execution completed {"timestamp":"2020-05-14T14:23:52.697Z"}
+info:  User get() initiated {"timestamp":"2020-05-14T14:24:39.801Z"}
+info:  User get() execution completed {"timestamp":"2020-05-14T14:24:40.511Z"}
+info:  User get() initiated {"timestamp":"2020-05-15T04:45:56.464Z"}
+info:  User get() execution completed {"timestamp":"2020-05-15T04:45:59.187Z"}
+info:  User get() initiated {"timestamp":"2020-05-15T04:47:10.089Z"}
+info:  User get() execution completed {"timestamp":"2020-05-15T04:47:10.302Z"}
+info:  User get() initiated {"timestamp":"2020-05-15T08:47:45.130Z"}
+info:  User get() execution completed {"timestamp":"2020-05-15T08:47:46.990Z"}
+info:  User get() initiated {"timestamp":"2020-05-15T08:49:17.584Z"}
+info:  User get() execution completed {"timestamp":"2020-05-15T08:49:17.993Z"}
+info: Task getAll() initiated {"timestamp":"2020-05-15T08:53:59.984Z"}
+error: Task getAll() failed in else block {"timestamp":"2020-05-15T08:54:00.844Z"}
+info:  User getById() initiated {"timestamp":"2020-05-15T08:54:09.501Z"}
+info:  User getById() execution completed {"timestamp":"2020-05-15T08:54:09.832Z"}
+info:  User get() initiated {"timestamp":"2020-05-15T08:55:28.231Z"}
+info:  User get() execution completed {"timestamp":"2020-05-15T08:55:28.316Z"}
+info:  User getById() initiated {"timestamp":"2020-05-15T08:55:40.130Z"}
+info:  User getById() execution completed {"timestamp":"2020-05-15T08:55:40.172Z"}
+info:  User getById() initiated {"timestamp":"2020-05-15T08:55:57.550Z"}
+info:  User getById() execution completed {"timestamp":"2020-05-15T08:55:57.610Z"}
+info:  User get() initiated {"timestamp":"2020-05-15T09:00:32.199Z"}
+info:  User get() execution completed {"timestamp":"2020-05-15T09:00:32.288Z"}

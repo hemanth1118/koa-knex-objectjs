@@ -16,7 +16,7 @@ exports.get = async (ctx) => {
                 data: user
             };
         } else {
-            logger.info(' User get() execution completed')
+            logger.error(' User get() execution failed in else block')
             ctx.status = 404;
             ctx.body = {
                 status: 'error',
@@ -24,7 +24,7 @@ exports.get = async (ctx) => {
             };
         }
     } catch (err) {
-        logger.error(' User get() execution completed')
+        logger.error(' User get() execution failed in catch block')
         console.log(err)
     }
 }
@@ -64,9 +64,12 @@ exports.create = async ctx => {
                         .insert({ city: req_city, pincode: req_pincode, country: req_country, user_id: response.id, address1: req_address1, address2: req_address2, address_type: req_address_type })
                         .then((response) => {
                             return Address.query()
-                                .insert({ city: req2_city, pincode: req2_pincode, country: req2_country, address1: req2_address1, address2: req2_address2, address_type: req2_address_type, user_id: response.user_id }
-
-                                )
+                                .insert({ city: req2_city, pincode: req2_pincode, country: req2_country, address1: req2_address1, address2: req2_address2, address_type: req2_address_type, user_id: response.user_id })
+                        })
+                        .then((response) => {
+                            return Users.query()
+                                .where({ first_name: req_first_name })
+                                .withGraphFetched("address")
                         })
                 })
             logger.info(' User create() execution completed')
@@ -82,7 +85,7 @@ exports.create = async ctx => {
             }
 
         } else {
-            logger.info(' User create() execution completed')
+            logger.error('User create() execution failed in else block')
             ctx.status = 400;
             ctx.body = {
                 status: 'error',
@@ -91,7 +94,7 @@ exports.create = async ctx => {
             };
         }
     } catch (err) {
-        logger.info(' User create() execution completed')
+        logger.error('User create() execution failed in catch block')
         ctx.status = 400;
         ctx.body = {
             status: 'error',
@@ -167,6 +170,7 @@ exports.update = async (ctx) => {
                 data: user, address
             };
         } else {
+            logger.error(' User update() execution failed in else block')
             ctx.status = 400;
             ctx.body = {
                 status: 'Error',
@@ -174,7 +178,7 @@ exports.update = async (ctx) => {
             };
         }
     } catch (err) {
-        logger.info(' User update() execution completed')
+        logger.error(' User update() execution failed in catch block')
         ctx.status = 400;
         ctx.body = {
             status: 'error',
@@ -197,7 +201,7 @@ exports.delete = async ctx => {
                 status: 'success',
             };
         } else {
-            logger.info(' User delete() execution completed')
+            logger.error(' User delete() execution failed in else block')
             ctx.status = 404;
             ctx.body = {
                 status: 'error',
@@ -205,7 +209,7 @@ exports.delete = async ctx => {
             };
         }
     } catch (err) {
-        logger.info(' User delete() execution completed')
+        logger.error(' User delete() execution failed in catch block')
         ctx.status = 400;
         ctx.body = {
             status: 'error',
@@ -229,7 +233,7 @@ exports.getById = async ctx => {
                 data: user
             };
         } else {
-            logger.info(' User getById() execution completed')
+            logger.error(' User getById() execution failed in else block')
             ctx.status = 404;
             ctx.body = {
                 status: 'error',
@@ -237,7 +241,7 @@ exports.getById = async ctx => {
             };
         }
     } catch (err) {
-        logger.info(' User getById() execution completed')
+        logger.error(' User getById() execution failed in catch block')
         ctx.status = 400;
         ctx.body = {
             status: 'error',
@@ -245,86 +249,3 @@ exports.getById = async ctx => {
         };
     }
 }
-
-exports.createMulti = async ctx => {
-    try {
-        req_city = ctx.request.body.city
-        req_pincode = ctx.request.body.pincode
-        req_country = ctx.request.body.country;
-        req_house_no = ctx.request.body.house_no;
-        req_street = ctx.request.body.street;
-        req_user_id = ctx.request.body.user_id
-        // reqdifficulty = ctx.request.body.difficulty;
-        if (!ctx.length) {
-            const user = await knex("user_address")
-                .insert({ city: req_city, pincode: req_pincode, country: req_country, user_id: req_user_id })
-                .returning('id')
-                .then(function (response) {
-                    return knex('address1')
-                        .insert({ house_no: req_house_no, street: req_street, address_id: response[0] })
-                })
-            ctx.status = 200;
-            ctx.body = {
-                status: 'success',
-                data: {
-                    req_city, req_pincode, req_country, req_house_no, req_street
-                }
-            }
-
-        } else {
-            ctx.status = 404;
-            ctx.body = {
-                status: 'error',
-                message: 'That user does not exist.'
-            };
-        }
-    } catch (err) {
-        ctx.status = 400;
-        ctx.body = {
-            status: 'error',
-            message: err.message || 'Sorry, an error has occurred.'
-        };
-    }
-
-}
-// exports.deleteTodoById = async ctx => {
-//     console.log('enterd')
-//     try {
-//         todo_id = ctx.params
-//         if (!ctx.length) {
-//             const data = knex('todos')
-//                 .where({ id: parseInt(todo_id) })
-//                 .del()
-//                 .returning('*')
-//                 .then((deleted) => {
-//                     console.log(deleted);
-//                     // return knex('users')
-//                     //     .where('id', todo_id)
-//                     //     .del()
-//                     //     .returning('*');
-//                 })
-//             ctx.status = 200;
-//             ctx.body = {
-//                 status: 'success',
-//                 data: {
-//                     data
-//                 }
-//             }
-
-//         } else {
-//             ctx.status = 404;
-//             ctx.body = {
-//                 status: 'error',
-//                 message: 'That user does not exist.'
-//             };
-//         }
-//     } catch (err) {
-//         ctx.status = 400;
-//         ctx.body = {
-//             status: 'error',
-//             message: err.message || 'Sorry, an error has occurred.'
-//         };
-//     }
-//     const todo_id = ctx.params.id;
-
-// };
