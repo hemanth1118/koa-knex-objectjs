@@ -3,6 +3,10 @@ const app = new Koa();
 const json = require('koa-json')
 const bodyparser = require('koa-bodyparser')
 const routes = require('./routes/route-index')
+const cors = require('@koa/cors');
+
+
+app.use(cors());
 
 var jwt = require('koa-jwt');
 

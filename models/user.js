@@ -4,11 +4,11 @@ const Model = require('objection').Model
 Model.knex(knex)
 
 
-const unique = require('objection-unique')({
-    fields: ['first_name']
-})
+// const unique = require('objection-unique')({
+//     fields: ['first_name']
+// })
 
-class Users extends unique(Model) {
+class Users extends (Model) {
 
     static get tableName() {
         return 'users'
@@ -44,14 +44,14 @@ class Users extends unique(Model) {
     static get jsonSchema() {
         return {
             type: 'object',
-            required: ['first_name', 'last_name', 'sex', 'date_of_birth'],
+            // required: ['first_name', 'last_name',],
 
             properties: {
                 id: { type: 'integer' },
                 first_name: { type: 'string', minLength: 1, maxLength: 255 },
                 last_name: { type: 'string', minLength: 1, maxLength: 255 },
-                sex: { type: 'string', minLength: 1, maxLength: 255 },
-                date_of_birth: { type: 'string', minLength: 1, maxLength: 255 },
+                sex: { type: 'string' },
+                date_of_birth: { type: 'string' },
 
             }
         };

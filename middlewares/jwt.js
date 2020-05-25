@@ -21,8 +21,8 @@ const isValid = async (ctx, next) => {
         }
 
     } catch (err) {
-        logger.error('token verification failed')
-        logger.error(err)
+        logger.error('token verification failed in catch block')
+        logger.error(err) 
         ctx.body = { message: err }
 
     }

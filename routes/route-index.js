@@ -42,13 +42,13 @@ router.delete('/user_address/:id', isTokenValid, address_controller.delete)
 
 // Users API routes >>>>
 
-router.get('/user', isTokenValid, user_controller.get)
+router.get('/user', user_controller.get)
 
-router.get('/user/:id', isTokenValid, user_controller.getById)
+router.get('/user/:id', user_controller.getById)
 
-router.post('/user', isTokenValid, user_controller.create)
+router.post('/user',  user_controller.create)
 
-router.put('/user/:id', isTokenValid, user_controller.update)
+router.patch('/user/:id', user_controller.update)
 
 router.delete('/user/:id', isTokenValid, user_controller.delete)
 
@@ -56,7 +56,11 @@ router.delete('/user/:id', isTokenValid, user_controller.delete)
 // router.delete('/delete_multi/:id', user_controller.deleteTodoById)s
 
 router.post('/signup', user_login.create)
-router.get('/login', user_login.login)
+router.post('/login', user_login.login)
+router.get('/listed_users', user_login.listed_users)
+router.get('/edit/:id', user_login.getUserById)
+router.put('/update/:id', user_login.updateUser)
+router.delete('/delete_user/:id', user_login.deleteUser)
 
 
 

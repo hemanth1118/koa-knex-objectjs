@@ -3,8 +3,8 @@ exports.up = function (knex, Promise) {
         table.increments('id');
         table.string('first_name').notNullable();
         table.string('last_name').notNullable();
-        table.string('sex').notNullable();
-        table.date('date_of_birth').notNullable();
+        table.string('sex')
+        table.date('date_of_birth')
     })
         .createTable('user_tasks', function (table) {
             table.increments('id');
@@ -25,10 +25,12 @@ exports.up = function (knex, Promise) {
             table.string('country')
             table.integer('user_id').references('id').inTable('users');
         })
-        .createTable('user_login', (table) => {
+        .createTable('user_login', function (table) {
             table.increments('id');
-            table.string('email')
-            table.string('password')
+            table.text('first_name').notNullable();
+            table.text('last_name').notNullable();
+            table.text('email').notNullable();
+            table.string('password').notNullable();
         })
 
 };
@@ -37,5 +39,7 @@ exports.down = function (knex, Promise) {
     return knex.schema.dropTable('users')
         .dropTable('user_tasks')
         .dropTable('user_address')
+        .dropTable('user_login')
+
 
 };

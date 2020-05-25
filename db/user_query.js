@@ -38,9 +38,7 @@ module.exports = {
             .update(user)
             .where('id', id)
             .returning('*')
-
-
-    },
+    },   
 
     deleteAddress(id) {
         return Address.query()
