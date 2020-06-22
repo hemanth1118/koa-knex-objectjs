@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { Component, OnInit } from '@angular/core'
+import { Router } from '@angular/router'
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 
-import { AuthService } from '../auth.service';
+import { AuthService } from '../auth.service'
 
 @Component({
   selector: 'app-login',
@@ -10,8 +10,8 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  loginForm: FormGroup;
-  submitted = false;
+  loginForm: FormGroup
+  submitted = false
 
   constructor(
     public formBuilder: FormBuilder,
@@ -24,15 +24,15 @@ export class LoginComponent implements OnInit {
       // tslint:disable-next-line
       email: new FormControl('', [Validators.required]),
       password: new FormControl('', Validators.required),
-    });
+    })
   }
 
   get loginFormControl() {
-    return this.loginForm.controls;
+    return this.loginForm.controls
   }
 
   loginUser() {
-    this.submitted = true;
-    this.authService.login(this.loginForm.value);
+    this.submitted = true
+    this.authService.login(this.loginForm.value)
   }
 }

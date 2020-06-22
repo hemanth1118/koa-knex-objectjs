@@ -1,11 +1,9 @@
-<div>
-  <button
-    (click)="logout()"
-    *ngIf="this.authService.isLoggedIn()"
-    type="button"
-    class="btn btn-primary"
-  >
+<nav class="navbar navbar-dark bg-dark" *ngIf="this.authService.isLoggedIn()">
+  <i class="fa fa-user fa-3x nav-user" aria-hidden="true"></i>
+  <h3 *ngIf="this.authService.isLoggedIn()" class="loginUser">{{ loginUser }}</h3>
+  <button (click)="logout()" *ngIf="this.authService.isLoggedIn()" type="button" class="btn btn-primary">
     Logout
   </button>
-</div>
+</nav>
+
 <router-outlet></router-outlet>

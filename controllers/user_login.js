@@ -1,31 +1,32 @@
-const userLogin = require('../models/user_login')
 var jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt')
 const logger = require('../logger')
-const queries = require('../db/user_query')
 const User = require('../models/user')
+const userAddress = require('../models/user_address')
 
 exports.create = async (ctx) => {
     try {
-
         // var hashedPassword = bcrypt.hashSync(ctx.request.body.password, 8);
         var req_email = ctx.request.body.email
-        var req_first_name = ctx.request.body.first_name
-        var req_last_name = ctx.request.body.last_name
         var req_password = ctx.request.body.password
+        var req_role = ctx.request.body.role
         console.log(req_email)
-        if (req_email && req_first_name && req_password && req_last_name) {
-            const login = await userLogin.query()
-                .insert({ email: req_email, password: req_password, first_name: req_first_name, last_name: req_last_name })
+        if (req_email && req_password) {
+            const login = await User.query()
+                .insert({ email: req_email, password: req_password, role: req_role })
                 .then((response) => {
-                    return User.query()
-                        .insert({  first_name: req_first_name, last_name: req_last_name })
-                        .then((res) => {
-                            return userLogin.query()
-                                .where({ email: req_email })
-                        })
+                    console.log(response.id)
+                    return userAddress.query()
+                        .insert({ user_id: response.id, address_type: "Temparary" })
                 })
-
+                .then((response) => {
+                    return userAddress.query()
+                        .insert({ user_id: response.user_id, address_type: "Parmanent" })
+                })
+                .then((res) => {
+                    return User.query()
+                        .where({ email: req_email })
+                })
             ctx.status = 200;
             ctx.body = {
                 status: 'user credentials are added',
@@ -59,25 +60,22 @@ exports.login = async (ctx) => {
             const myuser = { req_email, req_password }
             logger.info('Entered into if block')
             console.log(myuser)
-            const user = await userLogin.query()
+            const user = await User.query()
                 .findOne({ email: req_email, password: req_password })
+                .returning('*')
                 .then((user) => {
-                    if (user) {
+                    console.log(user)
+                    if (user.role == "Admin") {
                         const token = jwt.sign(myuser, 'secret', { expiresIn: '1h' });
                         ctx.body = {
-                            token
+                            token, user
                         }
                     }
                 })
-
-
-            // }
         }
         else {
             ctx.body = { message: "password not matched" }
             logger.error('login() method failed')
-
-
         }
     } catch (err) {
         logger.error('login() method failed')
@@ -86,9 +84,7 @@ exports.login = async (ctx) => {
             ctx.body = {
                 status: 'error',
                 message: err || 'Sorry, an error has occurred.'
-
             }
-
     }
 }
 
@@ -116,7 +112,7 @@ exports.getUserById = async (ctx) => {
 
         logger.info('getUserById() method initiated')
         let id = parseInt(ctx.params.id)
-        const user = await userLogin.query()
+        const user = await User.query()
             .findById(id)
             .returning('*')
         ctx.body = { user }
@@ -145,7 +141,7 @@ exports.updateUser = async (ctx) => {
         console.log(data)
         logger.info('updateUser() method initiated')
         let id = parseInt(ctx.params.id)
-        const user = await userLogin.query()
+        const user = await User.query()
             .update(data)
             .where('id', id)
             .returning('*')
@@ -158,9 +154,7 @@ exports.updateUser = async (ctx) => {
             ctx.body = {
                 status: 'error',
                 message: err || 'Sorry, an error has occurred.'
-
             }
-
     }
 }
 
@@ -168,7 +162,7 @@ exports.deleteUser = async (ctx) => {
     try {
         logger.info('deleteUser() method initiated')
         let id = parseInt(ctx.params.id)
-        const user = await userLogin.query()
+        const user = await User.query()
             .deleteById(id)
         ctx.body = {
             message: "deleted successfully"
@@ -181,9 +175,7 @@ exports.deleteUser = async (ctx) => {
             ctx.body = {
                 status: 'error',
                 message: err || 'Sorry, an error has occurred.'
-
             }
-
     }
 }
 

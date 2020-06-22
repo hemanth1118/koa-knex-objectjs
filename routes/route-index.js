@@ -10,21 +10,23 @@ const isTokenValid = require('../middlewares/jwt')
 
 router.get('/task', isTokenValid, tasks_controller.get)
 
-router.get('/overdue_task', isTokenValid, tasks_controller.getAllOverDue)
+router.get('/overdue_tasks', tasks_controller.getAllOverDue)
 
-router.get('/overdue_task/:id', isTokenValid, tasks_controller.getOneOverDue)
+router.get('/overdue_task/:id', tasks_controller.getOneOverDue)
 
-router.put('/update_status/:id', isTokenValid, tasks_controller.updateStatus)
+router.put('/update_status/:id', tasks_controller.updateStatus)
 
-router.put('/update_completed_task/:id', isTokenValid, tasks_controller.updateCompletedTask)
+router.put('/update_completed_task/:id', tasks_controller.updateCompletedTask)
 
-router.get('/task/:id', isTokenValid, tasks_controller.getById)
+router.get('/task/:id', tasks_controller.getById)
 
-router.post('/task', isTokenValid, tasks_controller.create)
+router.post('/task', tasks_controller.create)
 
-router.put('/task/:id', isTokenValid, tasks_controller.update)
+router.post('/add_task', tasks_controller.postUserID)
 
-router.delete('/task/:id', isTokenValid, tasks_controller.delete)
+router.put('/task/:id', tasks_controller.update)
+
+router.delete('/task/:id', tasks_controller.delete)
 
 router.get('/user_task/:id', isTokenValid, tasks_controller.get_user_task)
 
@@ -46,11 +48,11 @@ router.get('/user', user_controller.get)
 
 router.get('/user/:id', user_controller.getById)
 
-router.post('/user',  user_controller.create)
+router.post('/user', user_controller.create)
 
-router.patch('/user/:id', user_controller.update)
+router.put('/user/:id', user_controller.update)
 
-router.delete('/user/:id', isTokenValid, user_controller.delete)
+router.delete('/user/:id', user_controller.delete)
 
 
 // router.delete('/delete_multi/:id', user_controller.deleteTodoById)s

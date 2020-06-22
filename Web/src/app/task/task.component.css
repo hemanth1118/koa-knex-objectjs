@@ -1,0 +1,14 @@
+.pointerCursor{
+    cursor: pointer;
+}
+
+
+.fa-edit{
+    color: lightslategrey;
+    margin-right: 1em;
+}
+
+.fa-trash{
+    color: red;
+    margin-right: 0.5em;
+}

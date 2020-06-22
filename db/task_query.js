@@ -1,9 +1,11 @@
 const knex = require('./connect');
 const Task = require('../models/user_tasks')
-const currentDate = new Date(new Date().toDateString())
+var dateFormat = require('dateformat');
+// const currentDate = new Date(new Date().toDateString())
+var day = dateFormat(new Date(), "yyyy-mm-dd ");
+
 
 module.exports = {
-
 
     getAll() {
         return Task.query()
@@ -27,32 +29,33 @@ module.exports = {
     },
 
 
-    create(user) {
-        return Task.query()
-            .insert(user)
-            .returning('*')
-    },
+    // create(user) {
+    //     return Task.query()
+    //         .insert(user)
+    //         .returning('*')
+    // },
 
 
     // Task updation initiated
 
     updateStatus(id) {
+        console.log(day)
         return Task.query()
             .update({ status: 'Not Started' })
             .where('id', id)
-            .where('estimation', '>', currentDate)
+            .where('estimation', '>', day)
     },
     updateOverDue(id) {
         return Task.query()
             .update({ status: 'OverDue' })
             .where('id', id)
-            .where('estimation', '<', currentDate)
+            .where('estimation', '<', day)
     },
     updateInProgress(id) {
         return Task.query()
             .update({ status: 'In Progress' })
             .where('id', id)
-            .where('estimation', '=', currentDate)
+            .where('estimation', '=', day)
     },
     find(id) {
         return Task.query()

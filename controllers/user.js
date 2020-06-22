@@ -4,6 +4,7 @@ const Users = require('../models/user')
 const userLogin = require('../models/user_login')
 const Address = require('../models/user_address')
 const logger = require('../logger')
+const Task = require('../models/user_tasks')
 // const Address1 = require('./user_address').Address1
 
 exports.get = async (ctx) => {
@@ -14,7 +15,7 @@ exports.get = async (ctx) => {
             logger.info(' User get() execution completed')
             ctx.body = {
                 status: 'success',
-                data: user
+                user
             };
         } else {
             logger.error(' User get() execution failed in else block')
@@ -108,29 +109,6 @@ exports.create = async ctx => {
 exports.update = async (ctx) => {
     try {
         logger.info(' User update() initiated')
-        console.log("printing ctx", ctx)
-        // req_city = ctx.request.body.address[0].city
-        // req_pincode = ctx.request.body.address[0].pincode
-        // req_country = ctx.request.body.address[0].country;
-        // req_house_no = ctx.request.body.address[0].house_no;
-        // req_street = ctx.request.body.address[0].street;
-        // req_user_id = ctx.request.body.address[0].user_id;
-        // req_first_name = ctx.request.body.first_name;
-        // req_last_name = ctx.request.body.last_name;
-        // req_sex = ctx.request.body.sex;
-        // req_date_of_birth = ctx.request.body.date_of_birth;
-        // req_address_type = ctx.request.body.address[0].address_type;
-        // req_address1 = ctx.request.body.address[0].address1;
-        // req_address2 = ctx.request.body.address[0].address2;
-
-        // req2_city = ctx.request.body.address[1].city
-        // req2_pincode = ctx.request.body.address[1].pincode
-        // req2_country = ctx.request.body.address[1].country;
-        // req2_house_no = ctx.request.body.address[1].house_no;
-        // req2_street = ctx.request.body.address[1].street;
-        // req2_address_type = ctx.request.body.address[1].address_type;
-        // req2_address1 = ctx.request.body.address[1].address1;
-        // req2_address2 = ctx.request.body.address[1].address2;
 
         var data = {
             first_name: ctx.request.body.first_name,
@@ -139,53 +117,39 @@ exports.update = async (ctx) => {
             date_of_birth: ctx.request.body.date_of_birth
         }
 
-        // var data1 = {
-        //     city: ctx.request.body.address[0].city,
-        //     pincode: ctx.request.body.address[0].pincode,
-        //     country: ctx.request.body.address[0].country,
-        //     address_type: ctx.request.body.address[0].address_type,
-        //     address1: ctx.request.body.address[0].address1,
-        //     address2: ctx.request.body.address[0].address2
-        // }
+        var data1 = {
+            city: ctx.request.body.address[0].city,
+            pincode: ctx.request.body.address[0].pincode,
+            country: ctx.request.body.address[0].country,
+            address_type: ctx.request.body.address[0].address_type,
+            address1: ctx.request.body.address[0].address1,
+            address2: ctx.request.body.address[0].address2
+        }
 
-        // var data2 = {
-        //     city: ctx.request.body.address[1].city,
-        //     pincode: ctx.request.body.address[1].pincode,
-        //     country: ctx.request.body.address[1].country,
-        //     address_type: ctx.request.body.address[1].address_type,
-        //     address1: ctx.request.body.address[1].address1,
-        //     address2: ctx.request.body.address[1].address2
-        // }
-
-        // var req_email = ctx.request.body.email
-        // first_name = ctx.request.body.first_name
-        // last_name = ctx.request.body.last_name
-        // var req_password = ctx.request.body.password
-
+        var data2 = {
+            city: ctx.request.body.address[1].city,
+            pincode: ctx.request.body.address[1].pincode,
+            country: ctx.request.body.address[1].country,
+            address_type: ctx.request.body.address[1].address_type,
+            address1: ctx.request.body.address[1].address1,
+            address2: ctx.request.body.address[1].address2
+        }
+        console.log(data2)
+        console.log(data1)
         let id = parseInt(ctx.params.id)
-        // let data = ctx.request.body
-        // console.log(data)
-        // data.first_name, data.last_name, data.sex
-        // console.log(data)
-        if (data) {
-            // console.log(data)  
+        if (data.length != 0) {
+            console.log('enterd into if block')
             const user = await queries.updateUser(id, data)
-            const userLogin = await userLogin.query()
-                .update(data)
-                .where('id', id)
-            // console.log(user)
-            // console.log(id)
-            // var data = data1
-            // const address1 = await queries.updateAddress1(id, data)
-            // var data = data2
-            // const address2 = await queries.updateAddress2(id, data)
-            // ctx.status = 200;
-            // const address = { address1, address2 }
+            var data = data1
+            const address1 = await queries.updateAddress1(id, data)
+            var data = data2
+            console.log(address1)
+            const address2 = await queries.updateAddress2(id, data)
+            const address = { address1, address2 }
             logger.info(' User update() execution completed')
             ctx.body = {
                 status: 'success',
-                data: user, userLogin
-                // data: user, address
+                data: user, address
             };
         } else {
             logger.error(' User update() execution failed in else block')
@@ -208,7 +172,14 @@ exports.delete = async ctx => {
     try {
         logger.info(' User delete() initiated')
         let id = parseInt(ctx.params.id)
+
         var user = await queries.deleteAddress(id)
+            .then(async (res) => {
+                await Task.query()
+                    .where('user_id', id)
+                    .delete()
+                    .returning('*')
+            })
             .then(async (response) => {
                 await queries.deletUser(id)
             })
@@ -267,3 +238,4 @@ exports.getById = async ctx => {
         };
     }
 }
+

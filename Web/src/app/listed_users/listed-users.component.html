@@ -1,20 +1,78 @@
-<h3> List of all users</h3>
-<div class = "table">
-  <table class="table table-dark">
-    <tr>
-      <th *ngFor="let col of columns">
-        {{ col }}
-      </th>
-    </tr>
-    <tr *ngFor="let user of users; index as i">
-      <td *ngFor="let col of columns">
-        {{ user[col] }}
-      </td>
-      <td><button class = "btn btn-success" (click) = "updateUser(i)">Edit</button></td>
-      <td><button class = "btn btn-success" (click) = "deleteUser(i)">Delete</button></td>
-      <td><button class = "btn btn-primary" (click) = "userProfile(i)">userProfile</button></td>
+<div class="card border-secondary" *ngFor="let user of users; let i = index" id="i">
+  <div class="card-header pointerCursor d-flex align-items-center" (click)="current = i; isComplete(i)">
+    <!-- <div class=""> -->
+    <h5 class="card-title mx-auto w-100">
+      <i class="glyphicon" [class.glyphicon-chevron-right]="i != current"
+        [class.glyphicon-chevron-down]="i == current"></i>
+      {{ user.email }}
+    </h5>
+    <!-- </div> -->
+  </div>
+  <div id="collapse1" [class.collapse]="current != i">
+    <div class="card-body">
+      <div class="col-xs-10">
+        <div class="row vertical-align">
+          <div class="col-xs-4">
+            <img class="image" src="../../assets/images/profile_image.jpg" alt="" />
+          </div>
 
-    </tr>
-  </table>
+          <div class="col-xs-8">
+            <div *ngIf="!isProfileComplete">
+              <h3>
+                <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                Profile In-Complete
+              </h3>
+            </div>
+            <div class="row">
+              <div class="col-xs-6">{{ user.sex }}</div>
+            </div>
+            <div class="row">
+              <div class="col-xs-6">{{ user.first_name }}</div>
+            </div>
+            <div class="row">
+              <div class="col-xs-6">{{ user.last_name }}</div>
+            </div>
+            <div class="row">
+              <div class="col-xs-6">{{ dateInCorrectFormate }}</div>
+            </div>
+            <div *ngFor="let user1 of user.address">
+              <div class="row" *ngIf="isProfileComplete">
+                <div class="col-xs-8">
+                  <h6>Address-type: &nbsp;</h6>
+                </div>
+                <div class="col-xs-6">{{ user1.address_type }}</div>
+              </div>
+              <div class="row">
+                <div class="col-xs-6">{{ user1.address1 }}</div>
+              </div>
+              <div class="row">
+                <div class="col-xs-6">{{ user1.address2 }}</div>
+              </div>
+              <div class="row">
+                <div class="col-xs-6">{{ user1.city }}</div>
+              </div>
+              <div class="row">
+                <div class="col-xs-6">{{ user1.pincode }}</div>
+              </div>
+              <div class="row">
+                <div class="col-xs-6">{{ user1.country }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <span *ngIf="confirmDelete">
+        <span>Are you sure you want Delete</span>
+        <button class="btn btn-danger" (click)="deleteUser(i)">Yes</button>
+        <button class="btn btn-primary" (click)="confirmDelete = false">
+          No
+        </button>
+      </span>
+
+      <i class="fas fa-trash fa-2x pointerCursor" *ngIf="!confirmDelete" (click)="confirmDelete = true"></i>
+      <i class="fas fa-user fa-2x pointerCursor" (click)="userProfile(i)"></i>
+    </div>
+  </div>
 </div>
-

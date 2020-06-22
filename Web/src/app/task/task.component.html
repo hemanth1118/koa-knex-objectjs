@@ -1,0 +1,102 @@
+<div class="container" *ngIf='!isEditTask'>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Task</th>
+        <th>Difficulty</th>
+        <th>Estimation</th>
+        <th>Status</th>
+        <i class="fa fa-times fa-1x pointerCursor" aria-hidden="true" (click)="displayOverDue = false; onClickCancel()"
+          *ngIf="displayOverDue" title="go-back to tasks"></i>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let task of Tasks, let i = index">
+        <td>{{ task.task }}</td>
+        <td>{{ task.difficulty }}</td>
+        <td>{{ estimation[i] }}</td>
+        <td>{{ task.status }}</td>
+        <td *ngIf=!displayOverDue>
+          <mat-menu #rootMenu="matMenu">
+            <button mat-menu-item (click)="onClickEdit(i)"><i class="fas fa-edit fa-1x pointerCursor"></i>Edit</button>
+            <button mat-menu-item (click)="OnClickDeleteButton(i)"><i
+                class="fas fa-trash fa-1x pointerCursor"></i>&nbsp;Delete</button>
+            <button mat-menu-item [matMenuTriggerFor]="subMenu">update</button>
+          </mat-menu>
+          <mat-menu #subMenu="matMenu">
+            <button mat-menu-item (click)=onClickUpdateStatus(i)>update-status</button>
+            <button mat-menu-item (click)=updateStatusAsCompleted(i)>update-as-completed</button>
+            <button mat-menu-item (click)=getAllOverDueTasks()>get-all-overdue-tasks</button>
+          </mat-menu>
+
+          <button mat-icon-button [matMenuTriggerFor]="rootMenu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+        </td>
+      </tr>
+
+
+    </tbody>
+  </table>
+
+  <div class="container" *ngIf=!displayOverDue>
+    <div class="card">
+      <div class="card-body">
+        <div class="form-group">
+          <button class="btn btn-primary" (click)="addTaskButtonClick()">
+            +
+          </button>
+        </div>
+        <form class="form" [formGroup]="taskForm">
+          <div formArrayName="tasks" *ngFor="
+                let task of taskForm.get('tasks')['controls'];
+                let i = index
+              ">
+            <div [formGroupName]="i">
+              <div class="row">
+                <div class="form-group col-md-6 mb-3">
+                  <label>Task</label>
+                  <input type="text" class="form-control" formControlName="task" />
+                </div>
+                <div class="form-group col-md-6 mb-3">
+                  <label>Difficulty</label>
+                  <select class="custom-select" id="validationTooltip04" required type="text" class="form-control"
+                    formControlName="difficulty">
+                    <option selected disabled value="">Choose...</option>
+                    <option>Easy</option>
+                    <option>Medium</option>
+                    <option>Hard</option>
+                  </select>
+                </div>
+                <div class="form-group col-md-6 mb-3">
+                  <label>Estimation</label>
+                  <input type="text" bsDatepicker class="form-control" formControlName="estimation" />
+                </div>
+                <div class="form-group col-md-6 mb-3">
+                  <label>Status</label>
+                  <select class="custom-select" id="validationTooltip04" required type="text" class="form-control"
+                    formControlName="status">
+                    <option selected disabled value="">Choose...</option>
+                    <option>Not Started</option>
+                    <option>Completed</option>
+                    <option>InProgress</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <button class="btn btn-success" (click)="createTaskButtonOnClick(i)">
+                  submit
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- </div> -->
+    <!-- </div> -->
+  </div>
+
+  <div>
+
+  </div>

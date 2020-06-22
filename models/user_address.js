@@ -13,7 +13,7 @@ class Address extends Model {
     static get jsonSchema() {
         return {
             type: 'Array',
-            required: ['city', 'address2', 'address1', 'pincode'],
+            // required: ['city', 'address2', 'address1', 'pincode'],
 
             properties: {
                 address_type: { type: 'string' },

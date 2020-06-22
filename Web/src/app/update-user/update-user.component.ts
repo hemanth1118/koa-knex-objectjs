@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { AuthService } from '../auth.service'
 import { Router, ActivatedRoute } from '@angular/router'
 import { CustomvalidationService } from '../customvalidation.service'
+import { DatePipe } from '@angular/common'
+
 
 @Component({
   selector: 'app-update-user',
@@ -10,7 +12,7 @@ import { CustomvalidationService } from '../customvalidation.service'
   styleUrls: ['./update-user.component.css'],
 })
 export class UpdateUserComponent implements OnInit {
-  userForm: FormGroup
+  taskForm: FormGroup
   submitted = false
   id = []
 
@@ -19,51 +21,69 @@ export class UpdateUserComponent implements OnInit {
     public authService: AuthService,
     public router: Router,
     private route: ActivatedRoute,
-  ) {}
+    public datepipe: DatePipe
+  ) { }
 
   ngOnInit(): void {
-    this.userForm = this.fb.group({
-      first_name: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      last_name: ['', [Validators.required]],
+    this.taskForm = this.fb.group({
+      task: ['', Validators.required],
+      difficulty: ['', [Validators.required]],
+      status: ['', [Validators.required]],
+      estimation: ['', [Validators.required]],
     })
 
     this.route.paramMap.subscribe((parameterMap) => {
       const id = +parameterMap.get('id')
       this.id.push(id)
-      this.authService.editUser(id).subscribe((user) => this.editUser(user))
+      this.authService.getTaskById(id).subscribe((user) => {
+        console.log(user)
+        this.patchValues(user)
+      })
     })
   }
 
   get userFormControl() {
-    return this.userForm.controls
+    return this.taskForm.controls
   }
 
-  editUser(user) {
-    console.log(user)
-    this.userForm.patchValue({
-      first_name: user.user.first_name,
-      last_name: user.user.last_name,
-      email: user.user.email,
+  patchValues(user) {
+    let latest_date = this.datepipe.transform(
+      user.data.estimation,
+      'MM/dd/yyyy',
+    )
+    console.log(latest_date)
+    this.taskForm.patchValue({
+      task: user.data.task,
+      difficulty: user.data.difficulty,
+      status: user.data.status,
+      estimation: latest_date
     })
   }
-  updateUser() {
-  if(this.userForm.valid){
-    console.log(this.userForm.value)
-      this.authService.updateUser(this.id,this.userForm.value).subscribe((res) => {
-        console.log(this.userForm.value)
-        if (res) {
-          console.log('reset form')
-          this.submitted = true
-          if (this.userForm.valid) {
-            alert(
-              'Form Submitted succesfully!!!\n Check the values in browser console.',
-            )
-            console.table(this.userForm.value)
+  updateTask() {
+    if (this.taskForm.valid) {
+      console.log(this.taskForm.value)
+      this.authService
+        .updateTask(this.id, this.taskForm.value)
+        .subscribe((res) => {
+          console.log(this.taskForm.value)
+          if (res) {
+            console.log('reset form')
+            if (this.taskForm.valid) {
+              alert(
+                'Form Submitted succesfully!!!\n Check the values in browser console.',
+              )
+              console.table(this.taskForm.value)
+            }
+            const id = this.authService.id
+            console.log(id)
+            this.router.navigate([`task/${id}`])
           }
-          this.router.navigate(['listed_users'])
-        }
-      })
+        })
     }
+  }
+
+  goBackToTasks() {
+    const id = this.authService.id
+    this.router.navigate([`task/${id}`])
   }
 }

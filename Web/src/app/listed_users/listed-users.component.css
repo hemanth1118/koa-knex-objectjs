@@ -1,9 +1,53 @@
-
-.table{
-    margin-top: 2em;
+.table {
+  margin-top: 2em;
 }
 
+
 h3 {
-    margin-top: 1em;
-    text-align: center;
-  }
+  margin-top: 1em;
+  text-align: center;
+  color: red;
+}
+
+.vertical-align {
+  display: flex;
+  align-items: center;
+}
+
+.pointerCursor {
+  cursor: pointer;
+}
+
+/* .card-header {
+  height: 3em;
+} */
+.btn-success {
+  margin-right: 1em;
+}
+.btn-danger {
+  margin-right: 1em;
+}
+
+#card card-header card-body {
+  display: none;
+}
+
+#card card-header card-title:hover {
+  text-decoration: underline;
+}
+
+#card card-header card-body:target {
+  display: block;
+}
+
+.fas {
+  margin-right: 1em;
+}
+.image {
+  width: 20em;
+  margin-right: 15em;
+}
+.navbar {
+  height: 5.5em;
+}
+

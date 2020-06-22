@@ -48,11 +48,8 @@ class Users extends (Model) {
 
             properties: {
                 id: { type: 'integer' },
-                first_name: { type: 'string', minLength: 1, maxLength: 255 },
-                last_name: { type: 'string', minLength: 1, maxLength: 255 },
-                sex: { type: 'string' },
-                date_of_birth: { type: 'string' },
-
+                email: { type: 'string', minLength: 1, maxLength: 255 },
+                password: { type: 'string', minLength: 1, maxLength: 255 }
             }
         };
     }

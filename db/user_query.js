@@ -1,6 +1,8 @@
 const knex = require('./connect');
 const Users = require('../models/user')
 const Address = require('../models/user_address')
+const userLogin = require('../models/user_login')
+
 module.exports = {
 
     getAll() {
@@ -23,14 +25,14 @@ module.exports = {
 
     updateAddress1(id, data) {
         return Address.query()
-            .where({ user_id: id, address_type: 'Permanent' })
+            .where({ user_id: id, address_type: "Temparary" })
             .update(data)
             .returning('*')
     },
     updateAddress2(id, data) {
-        return Address.query().where({ address_type: 'Temperary' })
+        return Address.query()
+            .where({ user_id: id, address_type: 'Parmanent' })
             .update(data)
-            .where('user_id', id)
             .returning('*')
     },
     updateUser(id, user) {
@@ -38,7 +40,7 @@ module.exports = {
             .update(user)
             .where('id', id)
             .returning('*')
-    },   
+    },
 
     deleteAddress(id) {
         return Address.query()
@@ -52,7 +54,7 @@ module.exports = {
             .findById(id)
             .delete()
             .returning('*');
-    }
+    },
 
     // createMulti(user) {
     //     return knex("users")

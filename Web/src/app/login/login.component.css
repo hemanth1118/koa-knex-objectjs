@@ -1,6 +1,9 @@
-.card{
-    width: 35em;
-    margin-left: 20em;
-    margin-top: 10em;
-    background: border-box;
+.card {
+  width: 35em;
+  margin-left: 20em;
+  margin-top: 10em;
+  background: border-box;
+}
+.password {
+  margin-top: 2em;
 }

@@ -1,7 +1,9 @@
-<div>
+<div class="card">
   <form class="form-login" [formGroup]="loginForm" (ngSubmit)="loginUser()">
-    <h3 class="h3 mb-3 font-weight-normal text-center">Login</h3>
-    <div class="form-group">
+    <div class="card-header">
+      <h3 class="h3 mb-3 font-weight-normal text-center card-title">Login</h3>
+    </div>
+    <div class="form-group card-body">
       <label>Email</label>
       <input
         type="email"
@@ -19,28 +21,29 @@
       >
         email is required
       </span>
+      <div class="form-group password">
+        <label>Password</label>
+        <input
+          type="password"
+          class="form-control"
+          formControlName="password"
+          placeholder="Password"
+        />
+        <span
+          class="text-danger"
+          *ngIf="
+            (loginFormControl.password.touched || submitted) &&
+            loginFormControl.password.errors?.required
+          "
+        >
+          password is required
+        </span>
+      </div>
     </div>
-    <div class="form-group">
-      <label>Password</label>
-      <input
-        type="password"
-        class="form-control"
-        formControlName="password"
-        placeholder="Password"
-      />
-      <span
-      class="text-danger"
-      *ngIf="
-        (loginFormControl.password.touched || submitted) &&
-        loginFormControl.password.errors?.required
-      "
-    >
-    password is required
-    </span>
+    <div class="card-footer">
+      <button type="submit" class="btn btn-block btn-primary">
+        Login!
+      </button>
     </div>
-    
-    <button type="submit" class="btn btn-block btn-primary">
-      Login!
-    </button>
   </form>
 </div>
