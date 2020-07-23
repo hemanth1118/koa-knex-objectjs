@@ -9,6 +9,7 @@ module.exports = {
         return Users.query()
             .withGraphFetched("address")
             .withGraphFetched("tasks")
+            .withGraphFetched("photo")
 
     },
     getOne(id) {
@@ -51,7 +52,7 @@ module.exports = {
 
     deletUser(id) {
         return Users.query()
-            .findById(id)
+            .where({ id: id })
             .delete()
             .returning('*');
     },

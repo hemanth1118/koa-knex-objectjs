@@ -28,10 +28,18 @@ exports.up = function (knex, Promise) {
             table.string('country')
             table.integer('user_id').references('id').inTable('users');
         })
+
+        .createTable('user_photo', function (table) {
+            table.increments('id');
+            table.string('file_name')
+            table.string('file_path')
+            table.integer('user_id').references('id').inTable('users');
+        })
 };
 
 exports.down = function (knex, Promise) {
     return knex.schema.dropTable('users')
         .dropTable('user_tasks')
         .dropTable('user_address')
+        .dropTable('user_photo')
 };

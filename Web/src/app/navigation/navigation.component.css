@@ -1,6 +1,7 @@
 .sidenav-container {
   height: 100%;
-  background-color: slategrey
+  /* background-color: slategrey */
+  background: radial-gradient(circle, rgba(89,91,198,1) 0%, rgba(148,233,226,1) 100%);
 }
 
 .sidenav {

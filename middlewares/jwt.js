@@ -5,8 +5,10 @@ const isValid = async (ctx, next) => {
     try {
         logger.info('isvalid() jwt token initiated')
         var token = ctx.request.headers['authorization'];
+        // console.log(token)
         if (token.startsWith('Bearer')) {
             token = token.split(' ')[1];
+            // console.log(token)
             if (token) {
                 console.log('catch block')
                 console.log('started into if block')
@@ -22,7 +24,7 @@ const isValid = async (ctx, next) => {
 
     } catch (err) {
         logger.error('token verification failed in catch block')
-        logger.error(err) 
+        logger.error(err)
         ctx.body = { message: err }
 
     }

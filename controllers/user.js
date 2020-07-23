@@ -5,6 +5,7 @@ const userLogin = require('../models/user_login')
 const Address = require('../models/user_address')
 const logger = require('../logger')
 const Task = require('../models/user_tasks')
+const userPhoto = require('../models/user_photo')
 // const Address1 = require('./user_address').Address1
 
 exports.get = async (ctx) => {
@@ -30,6 +31,33 @@ exports.get = async (ctx) => {
         console.log(err)
     }
 }
+
+exports.getEmail = async (ctx) => {
+    try {
+        logger.info(' User get() initiated')
+        console.log(ctx.params)
+        const email = ctx.params.email
+        const user = await Users.query().where({ email: email });
+        if (user.length) {
+            logger.info(' User get() execution completed')
+            ctx.body = {
+                status: 'success',
+                user
+            };
+        } else {
+            logger.error(' User get() execution failed in else block')
+            ctx.status = 404;
+            ctx.body = {
+                status: 'error',
+                message: 'That user does not exist.'
+            };
+        }
+    } catch (err) {
+        logger.error(' User get() execution failed in catch block')
+        console.log(err)
+    }
+}
+
 exports.create = async ctx => {
     try {
         logger.info(' User create() initiated')
@@ -172,6 +200,7 @@ exports.delete = async ctx => {
     try {
         logger.info(' User delete() initiated')
         let id = parseInt(ctx.params.id)
+        // let fetchUserPhoto = await 
 
         var user = await queries.deleteAddress(id)
             .then(async (res) => {
@@ -180,7 +209,14 @@ exports.delete = async ctx => {
                     .delete()
                     .returning('*')
             })
+            .then(async (res) => {
+                await userPhoto.query()
+                    .where('user_id', id)
+                    .delete()
+                    .returning('*')
+            })
             .then(async (response) => {
+                console.log("hemanth")
                 await queries.deletUser(id)
             })
         if (!user) {

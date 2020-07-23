@@ -25,11 +25,14 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { LayoutModule } from '@angular/cdk/layout';
 import { NavigationComponent } from './navigation/navigation.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
+import { MatDialogModule } from '@angular/material/dialog';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { FileUploadModule } from 'ng2-file-upload';
 
 @NgModule({
   declarations: [
@@ -55,15 +58,18 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     MatIconModule,
     MatMenuModule,
     MatButtonModule,
+    MatDialogModule,
     MatSidenavModule,
     MatButtonToggleModule,
     FormsModule,
+    MatExpansionModule,
     MatGridListModule,
     MatCardModule,
     LayoutModule,
     MatToolbarModule,
     MatListModule,
     NgxChartsModule,
+    FileUploadModule
   ],
   providers: [
     DatePipe,

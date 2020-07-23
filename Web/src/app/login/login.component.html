@@ -1,49 +1,58 @@
-<div class="card">
-  <form class="form-login" [formGroup]="loginForm" (ngSubmit)="loginUser()">
-    <div class="card-header">
-      <h3 class="h3 mb-3 font-weight-normal text-center card-title">Login</h3>
-    </div>
-    <div class="form-group card-body">
-      <label>Email</label>
-      <input
-        type="email"
-        class="form-control"
-        formControlName="email"
-        placeholder="Enter email"
-        required
-      />
-      <span
-        class="text-danger"
-        *ngIf="
-          (loginFormControl.email.touched || submitted) &&
-          loginFormControl.email.errors?.required
-        "
-      >
-        email is required
-      </span>
-      <div class="form-group password">
-        <label>Password</label>
-        <input
-          type="password"
-          class="form-control"
-          formControlName="password"
-          placeholder="Password"
-        />
-        <span
-          class="text-danger"
-          *ngIf="
+<div class="main__container">
+  <div class="login-card">
+
+    <main class="login-content">
+      <span class="login-header">Login</span>
+      <!-- login form -->
+      <form class="login-form" (ngSubmit)="loginUser()" [formGroup]="loginForm">
+        <div class="form-group">
+          <input type="email" placeholder="Email" formControlName="email" class="login-input" required>
+          <div *ngIf="loginForm.get('email').touched && loginForm.get('email').invalid">
+            <div *ngIf="loginForm.get('email').errors['required']" class="validation-message">
+              email is required
+            </div>
+            <div *ngIf="loginForm.get('email').errors['pattern']" class="validation-message">
+              Incorrect Email
+            </div>
+            <div class='validation-message' *ngIf="email.errors?.invalid">
+              The email address or password is invalid
+            </div>
+          </div>
+          <!-- <span class="text-danger" *ngIf="
+            (loginFormControl.email.touched || submitted) &&
+            loginFormControl.email.errors?.required"><br>
+            email is required
+          </span> -->
+        </div>
+        <div class="form-group">
+          <input type="password" placeholder="Password" formControlName="password" class="login-input" minlength="6"
+            required>
+          <div *ngIf="loginForm.get('password').touched && loginForm.get('password').invalid">
+            <div *ngIf="loginForm.get('password').errors['required']" class="validation-message">
+              password is required
+            </div>
+          </div>
+          <!-- <span class="text-danger" *ngIf="
             (loginFormControl.password.touched || submitted) &&
             loginFormControl.password.errors?.required
-          "
-        >
-          password is required
-        </span>
+          "><br>
+            password is required
+          </span> -->
+        </div>
+        <input type="submit" name="submit" value="Login" class="login-btn">
+      </form>
+      <div class="signup-link-wrapper">
+        <span class="signup-notice">Don't have an account?</span>
+        <a class="signup-link" routerLink="/signup">Sign up</a>
       </div>
-    </div>
-    <div class="card-footer">
-      <button type="submit" class="btn btn-block btn-primary">
-        Login!
-      </button>
-    </div>
-  </form>
+
+    </main>
+
+    <!-- linking to signup -->
+    <aside class="login-aside">
+      <div class="login-aside-overlay"></div>
+      <h1 class="login-welcome-text">Welcome Back!</h1>
+      <hr class="login-aside-hr">
+    </aside>
+  </div>
 </div>

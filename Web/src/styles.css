@@ -4,4 +4,9 @@
 }
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
+  /* background: linear-gradient(to bottom, #B290FF, #2E1D65); */
+  /* background: rgb(34,193,195); */
+  background: radial-gradient(circle, rgba(89,91,198,1) 0%, rgba(148,233,226,1) 100%);
+ }
+

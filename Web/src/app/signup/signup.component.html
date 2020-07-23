@@ -1,109 +1,84 @@
-<div class="container">
-  <div class="row">
-    <div class="col-md-8 mx-auto">
-      <div class="card">
-        <div class="card-header">
-          <h3>Sigup to create an Account</h3>
-        </div>
-        <div class="card-body">
-          <form class="form" [formGroup]="signupForm" (ngSubmit)="signupUser()">
-            <div class="form-group">
-              <label>Email</label>
-              <input type="text" class="form-control" formControlName="email" />
-              <span
-                class="text-danger"
-                *ngIf="
+<div class="main__container">
+  <div class="signup-card">
+    <main class="signup-content">
+      <span class="signup-header">Signup</span>
+      <!-- signup form -->
+      <form class="signup-form" [formGroup]="signupForm" (ngSubmit)="signupUser()">
+        <div>
+          <input type="text" placeholder="Email" formControlName="email" class="signup-input" required><br>
+          <span class="text-danger" *ngIf="
                   (signUpFormControl.email.touched || submitted) &&
                   signUpFormControl.email.errors?.required
-                "
-              >
-                Email is required
-              </span>
-              <span
-                class="text-danger"
-                *ngIf="
+                ">
+            Email is required
+          </span>
+          <span class="text-danger" *ngIf="
                   signUpFormControl.email.touched &&
                   signUpFormControl.email.errors?.email
-                "
-              >
-                Enter a valid email address
-              </span>
-            </div>
-
-            <div class="form-group">
-              <label>Password</label>
-              <input
-                type="password"
-                class="form-control"
-                formControlName="password"
-              />
-              <span
-                class="text-danger"
-                *ngIf="
+                  ">
+            Enter a valid email address
+          </span>
+          <span class="alert alert-danger fade show" *ngIf="email.errors?.notUnique">
+            <small>Email already exists!!</small>
+          </span>
+          <!-- <span class="alert alert-warning fade show" *ngIf="email.pending">
+            <small>checking availability .....!</small>
+          </span> -->
+        </div>
+        <div>
+          <input type="password" placeholder="Password" formControlName="password" class="signup-input" minlength="6"
+            required><br>
+          <span class="text-danger" *ngIf="
                   (signUpFormControl.password.touched || submitted) &&
                   signUpFormControl.password.errors?.required
-                "
-              >
-                Password is required
-              </span>
-              <span
-                class="text-danger"
-                *ngIf="
+                ">
+            Password is required
+          </span>
+          <span class="text-danger" *ngIf="
                   signUpFormControl.password.touched &&
                   signUpFormControl.password.errors?.invalidPassword
-                "
-              >
-                Password should have minimum 8 characters, at least 1 uppercase
-                letter, 1 lowercase letter and 1 number
-              </span>
-            </div>
-            <div class="form-group">
-              <label>Confirm Password</label>
-              <input
-                type="password"
-                class="form-control"
-                formControlName="confirmPassword"
-              />
-              <span
-                class="text-danger"
-                *ngIf="
-                  (signUpFormControl.confirmPassword.touched || submitted) &&
-                  signUpFormControl.confirmPassword.errors?.required
-                "
-              >
-                Confirm Password is required
-              </span>
-              <span
-                class="text-danger"
-                *ngIf="
-                  signUpFormControl.confirmPassword.touched &&
-                  signUpFormControl.confirmPassword.errors?.passwordMismatch
-                "
-              >
-                Passwords doesnot match
-              </span>
-            </div>
-            <div class="form-group col-md-3 mb-3">
-              <label>Role</label>
-              <select
-                class="custom-select"
-                required
-                type="text"
-                class="form-control"
-                formControlName="role"
-              >
-                <option selected disabled value="">Choose...</option>
-                <option>Admin</option>
-                <option>Normal</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <button type="submit" class="btn btn-success">Signup!</button>
-            </div>
-          </form>
-          <h3>Already have a account? </h3><i [routerLink] = "['/login']">login</i>
+                ">
+            Password should have minimum 8 characters, at least 1 uppercase
+            letter, 1 lowercase letter and 1 number
+          </span>
         </div>
+        <div class="form-group">
+          <input type="password" class="form-control" formControlName="confirmPassword" class="signup-input"
+            placeholder="Confirm Password" /><br>
+          <span class="text-danger" *ngIf="
+              (signUpFormControl.confirmPassword.touched || submitted) &&
+              signUpFormControl.confirmPassword.errors?.required
+            ">
+            Confirm Password is required
+          </span>
+
+          <span class="text-danger" *ngIf="
+              signUpFormControl.confirmPassword.touched &&
+              signUpFormControl.confirmPassword.errors?.passwordMismatch
+            ">
+            Passwords doesnot match
+          </span>
+        </div>
+        <div class="form-group col-md-3 mb-3">
+          <label>Role</label>
+          <select class="custom-select" required type="text" class="form-control input-role" formControlName="role">
+            <option selected disabled value="">Choose...</option>
+            <option>Admin</option>
+            <option>Normal</option>
+          </select>
+        </div>
+        <input type="submit" name="submit" value="Signup" class="signup-btn">
+      </form>
+      <div class="login-link-wrapper">
+        <span class="login-notice">Already Have an account?</span>
+        <a class="login-link" routerLink="/login">login</a>
       </div>
-    </div>
+    </main>
+    <!-- linking to signup -->
+    <aside class="signup-aside">
+      <div class="signup-aside-overlay"></div>
+      <h1 class="signup-welcome-text">Join zelar Today!</h1>
+      <hr class="signup-aside-hr">
+    </aside>
   </div>
 </div>

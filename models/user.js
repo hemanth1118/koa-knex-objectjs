@@ -4,11 +4,11 @@ const Model = require('objection').Model
 Model.knex(knex)
 
 
-// const unique = require('objection-unique')({
-//     fields: ['first_name']
-// })
+const unique = require('objection-unique')({
+    fields: ['email']
+})
 
-class Users extends (Model) {
+class Users extends unique(Model) {
 
     static get tableName() {
         return 'users'
@@ -18,6 +18,7 @@ class Users extends (Model) {
     static get relationMappings() {
         const Task = require('./user_tasks')
         const Address = require('./user_address')
+        const Photo = require('./user_photo')
 
         return {
             address: {
@@ -34,6 +35,14 @@ class Users extends (Model) {
                 join: {
                     from: "users.id",
                     to: "user_tasks.user_id"
+                }
+            },
+            photo: {
+                modelClass: Photo,
+                relation: Model.HasOneRelation,
+                join: {
+                    from: "users.id",
+                    to: "user_photo.user_id"
                 }
             },
 

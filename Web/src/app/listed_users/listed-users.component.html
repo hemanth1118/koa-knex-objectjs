@@ -1,68 +1,103 @@
-<div class="card border-secondary" *ngFor="let user of users; let i = index" id="i">
-  <div class="card-header pointerCursor d-flex align-items-center" (click)="current = i; isComplete(i)">
-    <!-- <div class=""> -->
-    <h5 class="card-title mx-auto w-100">
-      <i class="glyphicon" [class.glyphicon-chevron-right]="i != current"
-        [class.glyphicon-chevron-down]="i == current"></i>
-      {{ user.email }}
-    </h5>
-    <!-- </div> -->
-  </div>
-  <div id="collapse1" [class.collapse]="current != i">
-    <div class="card-body">
-      <div class="col-xs-10">
-        <div class="row vertical-align">
-          <div class="col-xs-4">
-            <img class="image" src="../../assets/images/profile_image.jpg" alt="" />
-          </div>
+<mat-accordion *ngFor="let user of users; let i = index" id="i">
+  <mat-expansion-panel [expanded]="step === i" (opened)="setStep(i)" hideToggle>
+    <mat-expansion-panel-header (click)="current = i; isComplete(i)">
+      <mat-panel-title #lineItem [title]="isProfileCompleted(i)">
+        <h5>{{ lineItem.title }}</h5>
+      </mat-panel-title>
+      <mat-panel-description>
+        <!-- This is a summary of the content -->
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <div class="col-xs-10">
+      <div class="row vertical-align">
+        <div class="col-xs-4">
+          <div class="file-field">
+            <div class="mb-4" *ngIf="isProfilePicEmpty">
+              <img src="https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.jpg"
+                class="rounded-circle z-depth-1-half avatar-pic" alt="example placeholder avatar">
+            </div>
+            <div class="d-flex justify-content-center">
+              <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm" *ngIf="isProfilePicEmpty">
+                <span style="color:red;" *ngIf="message">{{message}}</span>
+                <input #file type="file" accept='image/*' (change)="preview(file.files)" />
+                <button (click)="onUpload(i)" class="row" class="btn btn-dark">Upload!</button>
+              </div>
+            </div>
+            <img [src]="imgURL" height="200" *ngIf="imgURL">
+            <mat-card class="image-card" *ngIf="!isProfilePicEmpty">
+              <mat-card-header>
+                <div mat-card-avatar class="header-image"></div>
 
-          <div class="col-xs-8">
-            <div *ngIf="!isProfileComplete">
-              <h3>
-                <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
-                Profile In-Complete
-              </h3>
+                <mat-card-title>
+                  <div class="menu">
+                    <mat-menu #rootMenu="matMenu">
+                      <button mat-menu-item (click)="onclickDeleteImage(i)">delete</button>
+                      <input #file type="file" accept='image/*' (change)="preview(file.files)" />
+                    </mat-menu>
+                    <button mat-icon-button [matMenuTriggerFor]="rootMenu" *ngIf="!isProfilePicEmpty">
+                      <mat-icon>more_vert</mat-icon>
+                    </button>
+                    <button (click)="onclickUpdateImage(i)" class="row"
+                      *ngIf="imgURL && !isProfilePicEmpty">update!</button>
+                  </div>
+                </mat-card-title>
+              </mat-card-header>
+              <img class="image" src="{{imageUrls}}" alt="" />
+              <mat-card-actions>
+                <button mat-button>LIKE</button>
+                <button mat-button>SHARE</button>
+              </mat-card-actions>
+            </mat-card>
+          </div>
+          <!-- <img class="image" src="../../assets/images/profile_image.jpg" alt="" /> -->
+        </div>
+
+        <div class="col-xs-8">
+          <div *ngIf="!isProfileComplete">
+            <h3>
+              <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+              Profile In-Complete
+            </h3>
+          </div>
+          <div class="row">
+            <div class="col-xs-6">{{ user.sex }}</div>
+          </div>
+          <div class="row">
+            <div class="col-xs-6">{{ user.first_name }}</div>
+          </div>
+          <div class="row">
+            <div class="col-xs-6">{{ user.last_name }}</div>
+          </div>
+          <div class="row">
+            <div class="col-xs-6">{{ dateInCorrectFormate }}</div>
+          </div>
+          <div *ngFor="let user1 of user.address">
+            <div class="row" *ngIf="isProfileComplete">
+              <div class="col-xs-8">
+                <h6>Address-type: &nbsp;</h6>
+              </div>
+              <div class="col-xs-6">{{ user1.address_type }}</div>
             </div>
             <div class="row">
-              <div class="col-xs-6">{{ user.sex }}</div>
+              <div class="col-xs-6">{{ user1.address1 }}</div>
             </div>
             <div class="row">
-              <div class="col-xs-6">{{ user.first_name }}</div>
+              <div class="col-xs-6">{{ user1.address2 }}</div>
             </div>
             <div class="row">
-              <div class="col-xs-6">{{ user.last_name }}</div>
+              <div class="col-xs-6">{{ user1.city }}</div>
             </div>
             <div class="row">
-              <div class="col-xs-6">{{ dateInCorrectFormate }}</div>
+              <div class="col-xs-6">{{ user1.pincode }}</div>
             </div>
-            <div *ngFor="let user1 of user.address">
-              <div class="row" *ngIf="isProfileComplete">
-                <div class="col-xs-8">
-                  <h6>Address-type: &nbsp;</h6>
-                </div>
-                <div class="col-xs-6">{{ user1.address_type }}</div>
-              </div>
-              <div class="row">
-                <div class="col-xs-6">{{ user1.address1 }}</div>
-              </div>
-              <div class="row">
-                <div class="col-xs-6">{{ user1.address2 }}</div>
-              </div>
-              <div class="row">
-                <div class="col-xs-6">{{ user1.city }}</div>
-              </div>
-              <div class="row">
-                <div class="col-xs-6">{{ user1.pincode }}</div>
-              </div>
-              <div class="row">
-                <div class="col-xs-6">{{ user1.country }}</div>
-              </div>
+            <div class="row">
+              <div class="col-xs-6">{{ user1.country }}</div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="card-footer">
+    <div>
       <span *ngIf="confirmDelete">
         <span>Are you sure you want Delete</span>
         <button class="btn btn-danger" (click)="deleteUser(i)">Yes</button>
@@ -74,5 +109,28 @@
       <i class="fas fa-trash fa-2x pointerCursor" *ngIf="!confirmDelete" (click)="confirmDelete = true"></i>
       <i class="fas fa-user fa-2x pointerCursor" (click)="userProfile(i)"></i>
     </div>
-  </div>
-</div>
+  </mat-expansion-panel>
+
+</mat-accordion>
+
+
+
+
+
+
+
+
+
+
+
+<!-- <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Self aware panel
+      </mat-panel-title>
+      <mat-panel-description>
+        Currently I am {{panelOpenState ? 'open' : 'closed'}}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <p>I'm visible because I am open</p>
+  </mat-expansion-panel> -->

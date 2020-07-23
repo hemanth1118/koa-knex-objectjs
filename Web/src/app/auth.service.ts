@@ -1,16 +1,13 @@
 import { Injectable } from '@angular/core'
-// import { RequestOptions, Request, RequestMethod, Headers, Http } from '@angular/http';
-
 import { Router } from '@angular/router'
 import {
   HttpClient,
   HttpHeaders,
   HttpErrorResponse,
+  HttpParams,
 } from '@angular/common/http'
-
 import { Observable, throwError } from 'rxjs'
 import { catchError, map } from 'rxjs/operators'
-
 import { User } from './user'
 
 @Injectable({
@@ -26,8 +23,6 @@ export class AuthService {
   isEditRoute: boolean = false
   id: number
 
-  // currentUser = {};
-
   constructor(private httpClient: HttpClient, public router: Router) { }
 
   // signup page post method
@@ -38,30 +33,112 @@ export class AuthService {
       .pipe(catchError(this.handleError))
   }
 
-  getUsername() {
-    return JSON.parse(localStorage.getItem('access_token')).email;
-  }
+  // getUsername() {
+  //   return JSON.parse(localStorage.getItem('access_token')).email;
+  // }
   // login page post method
-  login(user: User) {
+  login(user: User): Observable<any> {
+    console.log(user)
     if (user.email.length !== 0 && user.password.length !== 0) {
       return this.httpClient
         .post(`${this.API_URL}/login`, user)
-        .subscribe((res: any) => {
-          this.loginUserDetails.push(res.user.email)
-          localStorage.setItem('access_token', JSON.stringify({ email: res.user.email, token: res.token }));
-          // localStorage.setItem('access_token', res.token)
-          if (res.user.role == 'Admin') {
-            this.router.navigate(['dashboard'])
-          } else {
-            window.alert('You have no permission to Access this route')
-            this.router.navigate(['login'])
-          }
-        })
+        .pipe(
+          map((res: Response) => {
+            // console.log(res)
+            // if (res.user.role == 'Admin') {
+            //   localStorage.setItem('access_token', res.token)
+            //   this.router.navigate(['dashboard'])
+            // } else {
+            //   window.alert('You have no permission to Access this route')
+            //   this.router.navigate(['login'])
+            // }
+            return res || {}
+          }),
+          catchError(this.handleError),
+        )
+      // .subscribe((res: any) => {
+      //   console.log(res)
+      //   // this.loginUserDetails.push(res.user.email)
+      //   // localStorage.setItem('access_token', JSON.stringify({ email: res.user.email, token: res.token }));
+      //   localStorage.setItem('access_token', res.token)
+      //   if (res.user.role == 'Admin') {
+      //     this.router.navigate(['dashboard'])
+      //   } else {
+      //     window.alert('You have no permission to Access this route')
+      //     this.router.navigate(['login'])
+      //   }
+      // })
     }
   }
 
+  getImage(id): Observable<any> {
+    return this.httpClient
+      .get(`${this.API_URL}/upload/${id}`)
+      .pipe(
+        map((res: Response) => {
+          return res || {}
+        }),
+        catchError(this.handleError),
+      )
+  }
+
+  getAllImages(): Observable<any> {
+    return this.httpClient
+      .get(`${this.API_URL}/upload`)
+      .pipe(
+        map((res: Response) => {
+          return res || {}
+        }),
+        catchError(this.handleError),
+      )
+  }
+
+  uploadFile(image, id): Observable<any> {
+    let uploadData = new FormData();
+    uploadData.append('file', image, image.name,);
+    uploadData.append('id', id)
+    console.log(uploadData)
+    return this.httpClient
+      .post(`${this.API_URL}/upload`, uploadData)
+      .pipe(
+        map((res: Response) => {
+          return res || {}
+        }),
+        catchError(this.handleError),
+      )
+  }
+
+  deleteImage(id, image): Observable<any> {
+    // let deleteData = new FormData();
+    // // deleteData.append('file', image, image.name,);
+    // deleteData.append('id', id)
+    console.log(id)
+    return this.httpClient
+      .delete(`${this.API_URL}/delete/${image}`)
+      .pipe(
+        map((res: Response) => {
+          return res || {}
+        }),
+        catchError(this.handleError),
+      )
+  }
+
+  updateImage(image, id) {
+    let uploadData = new FormData();
+    uploadData.append('file', image, image.name,);
+    console.log(uploadData)
+    return this.httpClient
+      .put(`${this.API_URL}/update_image/${id}`, uploadData)
+      .pipe(
+        map((res: Response) => {
+          return res || {}
+        }),
+        catchError(this.handleError),
+      )
+  }
+
   getAccessToken() {
-    return localStorage.getItem('access_token')
+    return localStorage.getItem('access_token');
   }
 
   isLoggedIn(): boolean {
@@ -119,6 +196,7 @@ export class AuthService {
   // get all users
 
   getAllUsers(): Observable<any> {
+    console.log('all users')
     return this.httpClient
       .get(`${this.API_URL}/user`, { headers: this.headers })
       .pipe(
@@ -143,6 +221,7 @@ export class AuthService {
   }
 
   handleError(error: HttpErrorResponse) {
+    let msg = ''
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it   accordingly.
       console.error('An error occurred:', error.error.message);
@@ -150,24 +229,12 @@ export class AuthService {
     else {
       // The backend returned an unsuccessful response code.
       // The response body may contain clues as to what went wrong,
-      console.error(
-        'Backend returned code ${error.status}, ' +
-        'body was: ${error.error}');
+      // return error
+      console.error(error)
     }
     // return an observable with a user-facing error message
-    return throwError(
-      'Error Occurred; please try again later.');
+    return throwError(error);
   };
-  //   let msg = ''
-  //   if (error.error instanceof ErrorEvent) {
-  //     // client-side error
-  //     msg = error.error.message
-  //   } else {
-  //     // server-side error
-  //     msg = `Error Code: ${error.status}\nMessage: ${error.message}`
-  //   }
-  //   return throwError(msg)
-  // }
 
   getColumns(): string[] {
     return ['email', 'first_name', 'last_name']
@@ -281,6 +348,17 @@ export class AuthService {
   getAllOverDueTasks(): Observable<any> {
     return this.httpClient
       .get(`${this.API_URL}/overdue_tasks`, { headers: this.headers })
+      .pipe(
+        map((res: Response) => {
+          return res || {}
+        }),
+        catchError(this.handleError),
+      )
+  }
+
+  getUserByName(name): Observable<any> {
+    return this.httpClient
+      .get(`${this.API_URL}/email/${name}`, { headers: this.headers })
       .pipe(
         map((res: Response) => {
           return res || {}

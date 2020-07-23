@@ -3,6 +3,9 @@ const bcrypt = require('bcrypt')
 const logger = require('../logger')
 const User = require('../models/user')
 const userAddress = require('../models/user_address')
+// var Validator = require('koa-validate').Validator
+// const Koa = require('koa')
+// const app = new Koa();
 
 exports.create = async (ctx) => {
     try {
@@ -10,8 +13,9 @@ exports.create = async (ctx) => {
         var req_email = ctx.request.body.email
         var req_password = ctx.request.body.password
         var req_role = ctx.request.body.role
-        console.log(req_email)
+        console.log(ctx.request.body)
         if (req_email && req_password) {
+            logger.info("signup() method initiated")
             const login = await User.query()
                 .insert({ email: req_email, password: req_password, role: req_role })
                 .then((response) => {
@@ -27,64 +31,98 @@ exports.create = async (ctx) => {
                     return User.query()
                         .where({ email: req_email })
                 })
-            ctx.status = 200;
-            ctx.body = {
-                status: 'user credentials are added',
-                data: login
+
+            console.log(login)
+            if (login) {
+                ctx.status = 200;
+                ctx.body = {
+                    status: 'user credentials are added',
+                    data: login
+                }
+            } else {
+                ctx.status = 400;
+                ctx.body = {
+                    status: 'error',
+                    message: 'Something went wrong.'
+                };
             }
-        } else {
-            ctx.status = 400;
-            ctx.body = {
-                status: 'error',
-                message: 'Something went wrong.'
-            };
+            // console.log(login)
         }
     } catch (err) {
         ctx.status = 400,
             ctx.body = {
-                status: 'error',
-                message: err || 'Sorry, an error has occurred.'
+                status: 'Error',
+                message: 'Sorry, an error has occurred.'
             }
 
     }
 }
 
 exports.login = async (ctx) => {
-    try {
-        logger.info('login() method initiated')
-        const req_email = ctx.request.body.email;
-        const req_password = ctx.request.body.password;
-        // var hashedPassword = bcrypt.hashSync(ctx.request.body.password, 8);
-        if (req_email.length !== 0 && req_password !== 0) {
-            // if (bcrypt.compareSync(req_password, hashedPassword)) {
-            const myuser = { req_email, req_password }
-            logger.info('Entered into if block')
-            console.log(myuser)
-            const user = await User.query()
-                .findOne({ email: req_email, password: req_password })
-                .returning('*')
-                .then((user) => {
-                    console.log(user)
-                    if (user.role == "Admin") {
-                        const token = jwt.sign(myuser, 'secret', { expiresIn: '1h' });
-                        ctx.body = {
-                            token, user
-                        }
+    // try {
+    logger.info('login() method initiated')
+    const req_email = ctx.request.body.email;
+    const req_password = ctx.request.body.password;
+    // var hashedPassword = bcrypt.hashSync(ctx.request.body.password, 8);
+    console.log(req_email)
+    if (req_email.length !== 0 && req_password !== 0) {
+        // if (bcrypt.compareSync(req_password, hashedPassword)) {
+        const myuser = { req_email, req_password }
+        logger.info('Entered into if block')
+        console.log(myuser)
+
+        // ctx.assert('email', 'required').notEmpty();
+        // ctx.assert('email', 'valid email required').isEmail();
+        // ctx.assert('password', '6 to 20 characters required').len(6, 20);
+
+        // let errors = ctx.validationErrors();
+        // let mappedErrors = ctx.validationErrors(true);
+        // if (errors) {
+        //     return errors
+        // } else if (mappedErrors) {
+        //     return mappedErrors
+        // }
+
+        const user = await User.query()
+            .findOne({ email: req_email, password: req_password })
+            .returning('*')
+            .then((user) => {
+                console.log(user)
+                if (user.role == "Admin") {
+                    const token = jwt.sign(myuser, 'secret', { expiresIn: '1h' });
+                    ctx.body = {
+                        token, user
                     }
-                })
-        }
-        else {
-            ctx.body = { message: "password not matched" }
-            logger.error('login() method failed')
-        }
-    } catch (err) {
-        logger.error('login() method failed')
-        logger.error(err)
-        ctx.status = 400,
-            ctx.body = {
-                status: 'error',
-                message: err || 'Sorry, an error has occurred.'
-            }
+
+                }
+            }).catch((err) => {
+                ctx.status = 400
+                ctx.body = {
+                    status: 'error',
+                    message: 'User was not found.'
+                }
+            })
+        // console.log(user)
+        // if (user === undefined) {
+        //     ctx.status = 422,
+        //         ctx.body = {
+        //             status: 'error',
+        //             message: err || 'User was not found.'
+        //         }
+        // } else if (user.role == "Admin") {
+        //     const token = jwt.sign(myuser, 'secret', { expiresIn: '1h' });
+        //     ctx.body = {
+        //         token, user
+        //     }
+        // }
+        // } catch (err) {
+        //     logger.error('login() method failed')
+        //     logger.error(err)
+        //     ctx.status = 400,
+        //         ctx.body = {
+        //             status: 'error',
+        //             message: err || 'Sorry, an error has occurred.'
+        //         }
     }
 }
 
