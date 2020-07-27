@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { single } from '../../../src/data';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { AuthService } from '../auth.service'
 
 
 @Component({
@@ -12,12 +13,39 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent {
-
+  users = []
+  userslength
   single: any[];
   view: any[] = [400, 200];
 
-  constructor(private breakpointObserver: BreakpointObserver) {
-    Object.assign(this, { single });
+  constructor(private breakpointObserver: BreakpointObserver,
+    public authService: AuthService) {
+    this.authService.getAllUsers().subscribe((res) => {
+      this.users = res.user
+      console.log(this.users)
+      // this.userslength = this.users.length
+      let id = 1
+      if (id <= 5) {
+        console.log("enterd")
+        this.single = [
+          {
+            "name": "Germany",
+            "value": 8940000
+          },
+          {
+            "name": "USA",
+            "value": 5000000
+          },
+          {
+            "name": "France",
+            "value": 7200000
+          }
+        ];
+        Object.assign(this.single);
+      }
+    })
+
+    // Object.assign(this, { single });
   }
   gradient: boolean = true;
   showLegend: boolean = true;

@@ -9520,3 +9520,130 @@ info: login() method initiated {"timestamp":"2020-07-22T11:33:55.209Z"}
 info: Entered into if block {"timestamp":"2020-07-22T11:33:55.215Z"}
 info: login() method initiated {"timestamp":"2020-07-22T11:37:27.742Z"}
 info: Entered into if block {"timestamp":"2020-07-22T11:37:27.744Z"}
+info: login() method initiated {"timestamp":"2020-07-23T05:48:35.528Z"}
+info: Entered into if block {"timestamp":"2020-07-23T05:48:36.062Z"}
+info: isvalid() jwt token initiated {"timestamp":"2020-07-23T05:48:51.808Z"}
+info:  User get() initiated {"timestamp":"2020-07-23T05:48:53.200Z"}
+info:  User get() execution completed {"timestamp":"2020-07-23T05:48:59.563Z"}
+info: token verified {"timestamp":"2020-07-23T05:48:59.564Z"}
+info: login() method initiated {"timestamp":"2020-07-23T05:58:22.198Z"}
+info: Entered into if block {"timestamp":"2020-07-23T05:58:22.639Z"}
+info: isvalid() jwt token initiated {"timestamp":"2020-07-23T05:58:30.375Z"}
+info:  User get() initiated {"timestamp":"2020-07-23T05:58:30.470Z"}
+info:  User get() execution completed {"timestamp":"2020-07-23T05:58:31.877Z"}
+info: token verified {"timestamp":"2020-07-23T05:58:31.913Z"}
+info: login() method initiated {"timestamp":"2020-07-23T07:05:26.094Z"}
+info: Entered into if block {"timestamp":"2020-07-23T07:05:27.678Z"}
+info: isvalid() jwt token initiated {"timestamp":"2020-07-23T07:05:30.701Z"}
+info:  User get() initiated {"timestamp":"2020-07-23T07:05:30.773Z"}
+info:  User get() execution completed {"timestamp":"2020-07-23T07:05:33.828Z"}
+info: token verified {"timestamp":"2020-07-23T07:05:33.830Z"}
+info: isvalid() jwt token initiated {"timestamp":"2020-07-23T07:50:40.348Z"}
+info:  User get() initiated {"timestamp":"2020-07-23T07:50:41.783Z"}
+info:  User get() execution completed {"timestamp":"2020-07-23T07:50:50.072Z"}
+info: token verified {"timestamp":"2020-07-23T07:50:50.073Z"}
+info: isvalid() jwt token initiated {"timestamp":"2020-07-23T08:10:11.943Z"}
+error: token verification failed in catch block {"timestamp":"2020-07-23T08:10:20.994Z"}
+error: jwt expired {"name":"TokenExpiredError","expiredAt":"2020-07-23T08:05:28.000Z","timestamp":"2020-07-23T08:10:24.176Z"}
+info:  User get() initiated {"timestamp":"2020-07-27T05:03:58.373Z"}
+info:  User get() initiated {"timestamp":"2020-07-27T05:04:03.202Z"}
+error:  User get() execution failed in else block {"timestamp":"2020-07-27T05:04:09.059Z"}
+info:  User get() execution completed {"timestamp":"2020-07-27T05:04:09.106Z"}
+info:  User get() initiated {"timestamp":"2020-07-27T05:04:09.184Z"}
+info:  User get() execution completed {"timestamp":"2020-07-27T05:04:09.242Z"}
+info: login() method initiated {"timestamp":"2020-07-27T05:04:45.897Z"}
+info: Entered into if block {"timestamp":"2020-07-27T05:04:45.898Z"}
+info: login() method initiated {"timestamp":"2020-07-27T05:04:59.282Z"}
+info: Entered into if block {"timestamp":"2020-07-27T05:04:59.284Z"}
+info: isvalid() jwt token initiated {"timestamp":"2020-07-27T05:04:59.713Z"}
+info:  User get() initiated {"timestamp":"2020-07-27T05:04:59.724Z"}
+info:  User get() execution completed {"timestamp":"2020-07-27T05:05:00.898Z"}
+info: token verified {"timestamp":"2020-07-27T05:05:00.899Z"}
+info: isvalid() jwt token initiated {"timestamp":"2020-07-27T05:05:09.759Z"}
+info:  User get() initiated {"timestamp":"2020-07-27T05:05:09.762Z"}
+info:  User get() execution completed {"timestamp":"2020-07-27T05:05:09.805Z"}
+info: token verified {"timestamp":"2020-07-27T05:05:09.806Z"}
+info: user_phot getById() initiated {"timestamp":"2020-07-27T05:05:14.857Z"}
+info: user_phot getById() initiated {"timestamp":"2020-07-27T05:05:16.949Z"}
+info: user_phot getById() initiated {"timestamp":"2020-07-27T05:05:17.877Z"}
+info: isvalid() jwt token initiated {"timestamp":"2020-07-27T05:05:45.861Z"}
+info:  User getById() initiated {"timestamp":"2020-07-27T05:05:45.868Z"}
+info:  User getById() execution completed {"timestamp":"2020-07-27T05:05:47.466Z"}
+info: token verified {"timestamp":"2020-07-27T05:05:47.467Z"}
+info: isvalid() jwt token initiated {"timestamp":"2020-07-27T05:07:00.816Z"}
+info:  User update() initiated {"timestamp":"2020-07-27T05:07:00.819Z"}
+error:  User update() execution failed in catch block {"timestamp":"2020-07-27T05:07:03.792Z"}
+info: token verified {"timestamp":"2020-07-27T05:07:03.794Z"}
+info: isvalid() jwt token initiated {"timestamp":"2020-07-27T05:07:14.510Z"}
+info:  User update() initiated {"timestamp":"2020-07-27T05:07:14.513Z"}
+error:  User update() execution failed in catch block {"timestamp":"2020-07-27T05:07:14.522Z"}
+info: token verified {"timestamp":"2020-07-27T05:07:14.523Z"}
+info: isvalid() jwt token initiated {"timestamp":"2020-07-27T05:07:18.803Z"}
+info:  User get() initiated {"timestamp":"2020-07-27T05:07:18.806Z"}
+info:  User get() execution completed {"timestamp":"2020-07-27T05:07:18.918Z"}
+info: token verified {"timestamp":"2020-07-27T05:07:18.919Z"}
+info: user_phot getById() initiated {"timestamp":"2020-07-27T05:07:20.972Z"}
+info: isvalid() jwt token initiated {"timestamp":"2020-07-27T05:07:25.129Z"}
+info:  User getById() initiated {"timestamp":"2020-07-27T05:07:25.184Z"}
+info:  User getById() execution completed {"timestamp":"2020-07-27T05:07:25.326Z"}
+info: token verified {"timestamp":"2020-07-27T05:07:25.347Z"}
+info: isvalid() jwt token initiated {"timestamp":"2020-07-27T05:07:28.790Z"}
+info:  User update() initiated {"timestamp":"2020-07-27T05:07:28.794Z"}
+error:  User update() execution failed in catch block {"timestamp":"2020-07-27T05:07:28.803Z"}
+info: token verified {"timestamp":"2020-07-27T05:07:28.804Z"}
+info: isvalid() jwt token initiated {"timestamp":"2020-07-27T05:07:50.586Z"}
+info:  User update() initiated {"timestamp":"2020-07-27T05:07:50.588Z"}
+error:  User update() execution failed in catch block {"timestamp":"2020-07-27T05:07:50.703Z"}
+info: token verified {"timestamp":"2020-07-27T05:07:50.706Z"}
+info: isvalid() jwt token initiated {"timestamp":"2020-07-27T05:08:35.371Z"}
+info:  User update() initiated {"timestamp":"2020-07-27T05:08:35.374Z"}
+error:  User update() execution failed in catch block {"timestamp":"2020-07-27T05:08:35.382Z"}
+info: token verified {"timestamp":"2020-07-27T05:08:35.382Z"}
+info: isvalid() jwt token initiated {"timestamp":"2020-07-27T05:08:39.725Z"}
+info:  User get() initiated {"timestamp":"2020-07-27T05:08:39.797Z"}
+info:  User get() execution completed {"timestamp":"2020-07-27T05:08:39.855Z"}
+info: token verified {"timestamp":"2020-07-27T05:08:39.856Z"}
+info: user_phot getById() initiated {"timestamp":"2020-07-27T05:08:43.195Z"}
+info: isvalid() jwt token initiated {"timestamp":"2020-07-27T05:08:50.156Z"}
+info:  User getById() initiated {"timestamp":"2020-07-27T05:08:50.159Z"}
+info:  User getById() execution completed {"timestamp":"2020-07-27T05:08:50.326Z"}
+info: token verified {"timestamp":"2020-07-27T05:08:50.327Z"}
+info: isvalid() jwt token initiated {"timestamp":"2020-07-27T05:09:06.765Z"}
+info:  User get() initiated {"timestamp":"2020-07-27T05:09:06.792Z"}
+info:  User get() execution completed {"timestamp":"2020-07-27T05:09:06.822Z"}
+info: token verified {"timestamp":"2020-07-27T05:09:06.822Z"}
+info: user_phot getById() initiated {"timestamp":"2020-07-27T05:09:09.044Z"}
+info: user_phot getById() initiated {"timestamp":"2020-07-27T05:09:11.674Z"}
+info: user_phot getById() initiated {"timestamp":"2020-07-27T05:10:00.840Z"}
+info: user_phot getById() initiated {"timestamp":"2020-07-27T05:10:11.248Z"}
+info: user_phot getById() initiated {"timestamp":"2020-07-27T05:10:16.537Z"}
+error:  User get() execution failed in catch block {"timestamp":"2020-07-27T05:10:16.587Z"}
+info: user_phot getById() initiated {"timestamp":"2020-07-27T05:10:29.823Z"}
+error:  User get() execution failed in catch block {"timestamp":"2020-07-27T05:10:29.887Z"}
+info: user_phot getById() initiated {"timestamp":"2020-07-27T05:10:31.538Z"}
+info: isvalid() jwt token initiated {"timestamp":"2020-07-27T05:14:18.889Z"}
+info:  User getById() initiated {"timestamp":"2020-07-27T05:14:18.957Z"}
+info:  User getById() execution completed {"timestamp":"2020-07-27T05:14:19.042Z"}
+info: token verified {"timestamp":"2020-07-27T05:14:19.043Z"}
+info: isvalid() jwt token initiated {"timestamp":"2020-07-27T05:14:21.782Z"}
+info:  User getById() initiated {"timestamp":"2020-07-27T05:14:21.786Z"}
+info:  User getById() execution completed {"timestamp":"2020-07-27T05:14:21.869Z"}
+info: token verified {"timestamp":"2020-07-27T05:14:21.871Z"}
+info: isvalid() jwt token initiated {"timestamp":"2020-07-27T05:14:40.507Z"}
+info: Task update() initiated {"timestamp":"2020-07-27T05:14:40.941Z"}
+info: token verified {"timestamp":"2020-07-27T05:14:40.942Z"}
+info: isvalid() jwt token initiated {"timestamp":"2020-07-27T05:14:40.986Z"}
+info:  User getById() initiated {"timestamp":"2020-07-27T05:14:40.991Z"}
+info:  User getById() execution completed {"timestamp":"2020-07-27T05:14:41.047Z"}
+info: token verified {"timestamp":"2020-07-27T05:14:41.047Z"}
+info: isvalid() jwt token initiated {"timestamp":"2020-07-27T05:16:18.106Z"}
+info: Task create() initiated {"timestamp":"2020-07-27T05:16:18.159Z"}
+info: token verified {"timestamp":"2020-07-27T05:16:18.540Z"}
+info: isvalid() jwt token initiated {"timestamp":"2020-07-27T05:16:18.595Z"}
+info:  User getById() initiated {"timestamp":"2020-07-27T05:16:18.599Z"}
+info:  User getById() execution completed {"timestamp":"2020-07-27T05:16:18.801Z"}
+info: token verified {"timestamp":"2020-07-27T05:16:18.802Z"}
+info: isvalid() jwt token initiated {"timestamp":"2020-07-27T05:16:48.835Z"}
+info:  User getById() initiated {"timestamp":"2020-07-27T05:16:48.837Z"}
+info:  User getById() execution completed {"timestamp":"2020-07-27T05:16:48.885Z"}
+info: token verified {"timestamp":"2020-07-27T05:16:48.886Z"}
